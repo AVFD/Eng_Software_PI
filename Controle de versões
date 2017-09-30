@@ -1,0 +1,17 @@
+Neste arquivo escontra-se as especificações do que foi incrementado em cada versão do software.
+
+#####
+Version1 = A base do programa, ainda construida totalmente baseado em exemplos, e conhecimentos adquiridos pelo grupo.
+-----
+Login básico.
+Algumas rotas simples de controle: Inserir, Deletar, Listar.
+HTML puro para mostrar algumas informações.
+-----
+
+#####
+Version1.1 = Melhor desenvolvimento da base, com alguns incrementos.
+-----
+Login totalmente funcional, incluindo multiusuario.
+Controle de acesso nas rotas, somente usuários logados podem acessar as rotas.
+Uso do json para feedback, listar do banco, mensagens de erro e sucesso(será útil para comunicação com o Front-end).
+-----
