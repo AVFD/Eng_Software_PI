@@ -15,3 +15,9 @@ Login totalmente funcional, incluindo multiusuario.
 Controle de acesso nas rotas, somente usuários logados podem acessar as rotas.
 Uso do json para feedback, listar do banco, mensagens de erro e sucesso(será útil para comunicação com o Front-end).
 -----
+
+#####
+Version1.2 = Separação, especificação dos metodos HTTP de 3 tabelas que serão feitas controle no Front-end.
+-----
+Definição da rota de CRUD do administrador, em conjunto suas funcionalidades de acordo com o metodo HTTP. (POST, DELETE, PUT, GET)
+Gerenciamento do banco, mais especificamente da tabela de admin.
