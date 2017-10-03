@@ -21,3 +21,28 @@ Version1.2 = Separação, especificação dos metodos HTTP de 3 tabelas que ser�
 -----
 Definição da rota de CRUD do administrador, em conjunto suas funcionalidades de acordo com o metodo HTTP. (POST, DELETE, PUT, GET)
 Gerenciamento do banco, mais especificamente da tabela de admin.
+
+#####
+Version1.3 = Transferindo as funcionalidades do Admin para as outras duas tabelas.
+-----
+Tabela de laboratorios e security key com metodos implementados (DELETE, PUT, POST).
+#####
+
+####
+Version1.4 = fundição de códigos da versão 1.3 com o código de outro desenvolvedor do back-end.
+-----
+Métodos de inserção da tabela de usários
+-----
+
+#####
+Version2 = prê modularização do código, e melhoramento do mesmo.
+-----
+Finalização dos métodos para as 5 tabelas que ficarão no server.
+Falha nas sessões.
+-----
+
+#####
+Version2-1 = Melhoramento de código.
+-----
+Colocação de funções para retorno de código HTTP, de acordo com cada feedback necessário. Ex: Code -> 404 = Error, Not found!
+-----
