@@ -1,0 +1,27 @@
+<br><br>
+<div class="container">
+  <a class="btn-floating btn-large waves-effect waves-light red right"
+  routerLink="/admin/novo"><i class="material-icons">add</i></a>
+  <table class="highlight responsive-table centered">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Gerenciar</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr *ngFor="let adm of adminsJson.admins">
+        <td >{{ adm.name }}</td>
+        <td>{{ adm.email }}</td>
+        <td>
+            <a class="waves-effect waves-light btn" (click)="editar(adm.id)">Editar</a>
+            <a class="waves-effect waves-light btn" (click)="deletarAdm(adm.id)"
+            >Excluir</a>
+      </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>

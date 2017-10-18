@@ -1,0 +1,20 @@
+<nav class="nav-custom" *ngIf="mostrarMenu" >
+    <div class="nav-wrapper">
+      <a routerLink="" class="brand-logo right"
+      (click)="logout()">Logout</a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li routerLinkActive="active"><a 
+          routerLink="adm" 
+          >Administrador</a>
+        </li>
+        <li routerLinkActive="active"><a
+          routerLink="usr">Usuários</a>
+        </li>
+        <li routerLinkActive="active"><a 
+          routerLink="salas">Salas</a>
+        </li>
+      </ul>
+    </div>
+</nav>
+
+<router-outlet></router-outlet>

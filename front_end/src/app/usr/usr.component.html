@@ -1,0 +1,35 @@
+<br><br>
+
+<div class="container">
+  <a class="btn-floating btn-large waves-effect waves-light red right"
+  routerLink="/user/novo"><i class="material-icons">add</i></a>
+  <table class="highlight responsive-table centered">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Registro Interno</th>
+        <th>Profissão</th>
+        <th>Permissões</th>
+        <th>Gerenciar</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr *ngFor="let user of users.users">
+        <td >{{ user.name }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.internal_id }}</td>
+        <td>{{ user.profession }}</td>
+        <td *ngIf="user.permission.length <= 2" >{{ user.permission }}</td>
+        <td *ngIf="user.permission.length > 2" >Muitas</td>
+        <td>
+            <a class="waves-effect waves-light btn" (click)="editar(user.id)">Editar</a>
+            <a class="waves-effect waves-light btn" (click)="deletarUser(user.id)"
+            >Excluir</a>
+      </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>

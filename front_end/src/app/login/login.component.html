@@ -1,0 +1,23 @@
+<div class="container">
+  <h4>Login</h4>
+  <form #login="ngForm" (ngSubmit)="onSubmit(login)" >
+    <div class="row">
+      <div class="input-field col s12">
+        <input name="nameuser" type="text" class="validate" ngModel>
+        <label class="active">Usuário</label>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="input-field col s12">
+        <input name="password" type="password" class="validate" ngModel>
+        <label class="active" >Senha</label>
+      </div>
+    </div>
+    <button class="btn waves-effect waves-light" 
+     name="login">
+    Login
+    <i class="material-icons right">send</i>
+  </button>
+  </form>
+</div>

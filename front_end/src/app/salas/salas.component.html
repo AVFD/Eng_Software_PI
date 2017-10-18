@@ -1,0 +1,25 @@
+<br><br>
+<div class="container">
+  <a class="btn-floating btn-large waves-effect waves-light red right"
+  routerLink="/sala/novo"><i class="material-icons">add</i></a>
+  <table class="highlight responsive-table centered">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Gerenciar</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr *ngFor="let sala of salasJson.laboratories">
+        <td >{{ sala.name }}</td>
+        <td>
+            <a class="waves-effect waves-light btn" (click)="editar(sala.id)">Editar</a>
+            <a class="waves-effect waves-light btn" (click)="deletarSala(sala.id)"
+            >Excluir</a>
+      </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
