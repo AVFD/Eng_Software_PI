@@ -5,8 +5,10 @@ Esse projeto foi construido com [Angular CLI](https://github.com/angular/angular
 ## Pré-Requisitos
 Lembre-se do ***sudo*** para sistemas **Linux**
 * Node.js
-* typeScript > `npm install -g typescript`
-* Angular CLI > `npm install -g @angular/cli`
+* typeScript 
+> `npm install -g typescript`
+* Angular CLI 
+> `npm install -g @angular/cli`
 
 ## Development server
 Digite `ng serve` para ativar o servidor e acesse-o pelo endereço `http://localhost:4200/`. O app irá recarregar automaticamente caso você altere e salve o arquivo.
