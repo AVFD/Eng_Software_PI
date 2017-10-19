@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
       'username': form.value.nameuser,
       'password': form.value.password
     };
+    console.log(this.usuarioJson);
     await this.authService.fazerLogin(this.usuarioJson);
     
     if(this.authService.usuarioEstaAutenticado()){

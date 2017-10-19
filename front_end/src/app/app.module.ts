@@ -1,14 +1,13 @@
-import { UsrService } from './usr/usr.service';
+import { DbService } from './db-service.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AdministradorFormEditComponent } from './administrador-form-edit/administrador-form-edit.component';
-import { SalasService } from './salas/salas.service';
-import { AdministradorService } from './administrador/administrador.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AppComponent } from './app.component';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import 'materialize-css';
 import { MaterializeModule } from 'angular2-materialize';
 import { LoginComponent } from './login/login.component';
@@ -44,9 +43,10 @@ import { ErroComponent } from './erro/erro.component';
     FormsModule,
     HttpModule,
     MaterializeModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MultiselectDropdownModule,
   ],
-  providers: [AuthService, AuthGuard, AdministradorService, SalasService, UsrService],
+  providers: [AuthService, AuthGuard, DbService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

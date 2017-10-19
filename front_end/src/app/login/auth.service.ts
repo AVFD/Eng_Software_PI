@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/toPromise';
 
-const ip = "http://25.81.2.247:5000";
+const ip = "http://127.0.0.1:5000";
 @Injectable()
 export class AuthService {
   private usuarioAutenticado:boolean = false;

@@ -1,5 +1,5 @@
+import { DbService } from './../db-service.service';
 import { Router } from '@angular/router';
-import { SalasService } from './../salas/salas.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SalasFormComponent implements OnInit {
   private sala:any = {}
-  constructor(private route:Router, private salasService:SalasService) { }
+  constructor(private route:Router, private dbService:DbService) { }
 
   ngOnInit() {
   }
@@ -18,7 +18,7 @@ export class SalasFormComponent implements OnInit {
       this.sala = {
         'name': form.value.name
       }
-      this.salasService.adicionarSala(this.sala).subscribe();
+      this.dbService.adicionarSala(this.sala).subscribe();
       this.route.navigate(['/salas']);
     }
     else{

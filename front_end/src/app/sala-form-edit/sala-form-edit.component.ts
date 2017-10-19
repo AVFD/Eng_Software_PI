@@ -1,7 +1,7 @@
+import { DbService } from './../db-service.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
-import { SalasService } from './../salas/salas.service';
 @Component({
   selector: 'app-sala-form-edit',
   templateUrl: './sala-form-edit.component.html',
@@ -12,12 +12,12 @@ export class SalaFormEditComponent implements OnInit {
   id:string;
   constructor(
     private routeActive:ActivatedRoute,
-    private salasService:SalasService
+    private dbService:DbService
   ) { }
 
   ngOnInit() {
     this.routeActive.params.subscribe((params:any)=>this.id = params['id']);
-    this.salasService
+    this.dbService
     .getSala(this.id) 
     .map(res=> res.json())
     .subscribe((data)=>{
@@ -29,7 +29,7 @@ export class SalaFormEditComponent implements OnInit {
       'id': this.id,
       'name': form.value.name
     }
-    this.salasService.updateSala(this.salaSelected).subscribe();
+    this.dbService.updateSala(this.salaSelected).subscribe();
   }
 
 }

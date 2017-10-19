@@ -1,8 +1,8 @@
+import { DbService } from './../db-service.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import 'rxjs/Rx';
 
-import { SalasService } from './salas.service';
 @Component({
   selector: 'app-salas',
   templateUrl: './salas.component.html',
@@ -13,11 +13,11 @@ export class SalasComponent implements OnInit {
   
   constructor(
     private route:Router,
-    private salasService:SalasService
+    private dbService:DbService
   ) { }
 
   ngOnInit() {
-    this.salasService
+    this.dbService
     .getSalas() 
     .map(res=> res.json())
     .subscribe((data)=>{
@@ -28,6 +28,6 @@ export class SalasComponent implements OnInit {
     this.route.navigate(['/sala', id]);
   }
   deletarSala(id){
-    this.salasService.deletarSala(id).subscribe();
+    this.dbService.deletarSala(id).subscribe();
   }
 }

@@ -1,9 +1,9 @@
+import { DbService } from './../db-service.service';
 import { Router } from '@angular/router';
 import { getTestBed } from '@angular/core/testing';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import 'rxjs/Rx';
 
-import { AdministradorService } from './administrador.service';
 
 @Component({
   selector: 'app-administrador',
@@ -15,11 +15,11 @@ export class AdministradorComponent implements OnInit {
   adminsJson:any = [];
   constructor(
     private route:Router, 
-    private administradorService:AdministradorService
+    private dbService: DbService,
   ) { }
 
   ngOnInit() {
-    this.administradorService
+    this.dbService
     .getAdministradores() 
     .map(res=> res.json())
     .subscribe((data)=>{
@@ -30,7 +30,7 @@ export class AdministradorComponent implements OnInit {
     this.route.navigate(['/admin', id]);
   }
   deletarAdm(id){
-    this.administradorService.deletarAdm(id).subscribe();
+    this.dbService.deletarAdm(id).subscribe();
   }
 
 }

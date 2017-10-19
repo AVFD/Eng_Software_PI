@@ -1,7 +1,7 @@
+import { DbService } from './../db-service.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
-import { AdministradorService } from './../administrador/administrador.service';
 @Component({
   selector: 'app-administrador-form-edit',
   templateUrl: './administrador-form-edit.component.html',
@@ -12,12 +12,12 @@ export class AdministradorFormEditComponent implements OnInit {
   id:string;
   constructor(
     private routeActive:ActivatedRoute,
-    private administradorService:AdministradorService
+    private dbService:DbService
   ) { }
 
   ngOnInit() {
     this.routeActive.params.subscribe((params:any)=>this.id = params['id']);
-    this.administradorService
+    this.dbService
     .getAdministrador(this.id) 
     .map(res=> res.json())
     .subscribe((data)=>{
@@ -32,7 +32,7 @@ export class AdministradorFormEditComponent implements OnInit {
       'password': form.value.password,
       'email': form.value.email
     }
-    this.administradorService.updateAdministrador(this.adminSelected).subscribe();
+    this.dbService.updateAdministrador(this.adminSelected).subscribe();
   }
 
 

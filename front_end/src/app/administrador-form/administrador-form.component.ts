@@ -1,4 +1,4 @@
-import { AdministradorService } from './../administrador/administrador.service';
+import { DbService } from './../db-service.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdministradorFormComponent implements OnInit {
   private adminJson:any = {  };
-  constructor(private administradorService:AdministradorService) { }
+  constructor(private dbService:DbService) { }
 
   ngOnInit() {
   }
@@ -20,7 +20,7 @@ export class AdministradorFormComponent implements OnInit {
       'password': form.value.password,
       'email': form.value.email
     }
-    console.log(this.administradorService.adicionarAdm(this.adminJson).subscribe());
+    console.log(this.dbService.adicionarAdm(this.adminJson).subscribe());
 
   }
 }

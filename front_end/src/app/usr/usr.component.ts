@@ -1,6 +1,6 @@
+import { DbService } from './../db-service.service';
 import { Component, OnInit } from '@angular/core';
 
-import { UsrService } from './usr.service';
 @Component({
   selector: 'app-usr',
   templateUrl: './usr.component.html',
@@ -8,17 +8,17 @@ import { UsrService } from './usr.service';
 })
 export class UsrComponent implements OnInit {
   users = [];
-  constructor(private usrService:UsrService) { }
+  constructor(private dbService:DbService) { }
 
   ngOnInit() {
-    this.usrService.getUsers()
+    this.dbService.getUsers()
     .map(res=> res.json())
     .subscribe((data)=>{
       this.users = data;
     });
   }
   deletarUser(id){
-    this.usrService.removerUser(id).subscribe();
+    this.dbService.removerUser(id).subscribe();
   }
 
 }

@@ -34,8 +34,10 @@
       <div class="row">
         <div class="input-field col s12">
           <i class="material-icons prefix"></i>
-          <input name="permission" type="text" class="validate" ngModel required>
-          <label >Permissões</label>
+          <label >Salas Permitidas:</label>
+          <ss-multiselect-dropdown [options]="myOptions" [texts]="myTexts"
+          [ngModelOptions]="{standalone: true}" [settings]="mySettings" 
+          [(ngModel)]="salas_Selected"></ss-multiselect-dropdown>
         </div>
       </div>
       <a class="waves-effect waves-light btn" routerLink="/usr">Cancelar</a>

@@ -1,6 +1,7 @@
-import { SalasService } from './../salas/salas.service';
-import { UsrService } from './../usr/usr.service';
+import { DbService } from './../db-service.service';
 import { Component, OnInit } from '@angular/core';
+import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts} from 'angular-2-dropdown-multiselect';
+
 
 @Component({
   selector: 'app-usr-form',
@@ -8,23 +9,48 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./usr-form.component.css']
 })
 export class UsrFormComponent implements OnInit {
-  private user:any = {}
-  private salas = [];
+  private salas_Selected = [];
   constructor(
-    private salasService:SalasService,
-    private usrService:UsrService
+    private dbService:DbService,
   ) { }
+  
+// Settings configuration
+  mySettings: IMultiSelectSettings = {
+    showCheckAll: true,
+    showUncheckAll: true,
+    isLazyLoad: true,
+    checkedStyle: 'fontawesome',
+    buttonClasses: 'btn btn-default btn-block',
+    dynamicTitleMaxItems: 10,
+    displayAllSelectedText: true
+  };
+
+// Text configuration
+  myTexts: IMultiSelectTexts = {
+    checkAll: 'Marcar todos',
+    uncheckAll: 'Desmarcar todos',
+    checked: 'Item marcado!',
+    checkedPlural: 'Itens marcados!',
+    defaultTitle: 'Selecione as salas',
+    allSelected: 'Todos selecionados!',
+  };
+
+// Labels / Parents
+  myOptions: IMultiSelectOption[];
+
 
   ngOnInit() {
-    this.salasService.getSalas()
+    this.dbService.getSalas()
     .map(res=> res.json())
-    .subscribe((data)=>{
-      this.salas = data
-      console.log(this.salas);
+    .subscribe(data=>{
+      this.myOptions = data.laboratories;
     });
   }
   onSubmit(form){
-
+    if (form.valid) {
+      
+      
+    }
   }
 
 }
