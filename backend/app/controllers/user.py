@@ -55,8 +55,9 @@ def ReadUser(ident):
             for permission in permissions:
                 laboratory = Laboratory.query.filter_by(id=permission.laboratory_id).first()
                 allowed_labs.append(laboratory.name)
+            sk = SearchSecurityKey(ident=user.security_key_id)
             user_data['email'] = user.email
-            user_data['security_key_id'] = user.security_key_id
+            user_data['security_key'] = sk.security_key
             user_data['internal_id'] = user.internal_id
             user_data['name'] = user.name
             user_data['id'] = user.id
@@ -76,8 +77,9 @@ def ReadUser(ident):
                 for permission in permissions:
                     laboratory = Laboratory.query.filter_by(id=permission.laboratory_id).first()
                     allowed_labs.append(laboratory.name)
+                sk = SearchSecurityKey(ident=user.security_key_id)
                 user_data['email'] = user.email
-                user_data['security_key_id'] = user.security_key_id
+                user_data['security_key'] = sk.security_key
                 user_data['internal_id'] = user.internal_id
                 user_data['name'] = user.name
                 user_data['id'] = user.id
@@ -107,7 +109,7 @@ def UpdateUser():
     MassiveDeleteFromDataBase(permissions_delete)
     InsertPermission(data)
     db.session.commit()
-    return ResponseOK()
+    return ResponseOk()
 
 
 @app.route("/user/delete/<int:ident>", methods=["DELETE"])

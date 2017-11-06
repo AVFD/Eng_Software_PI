@@ -47,7 +47,7 @@ def do_admin_login():
     #return redirect(url_for('index'))
     resp = make_response('')
     resp.set_cookie(name, password, 3600)
-    #return ResponseOK()
+    #return ResponseOk()
     return resp
 
 
@@ -59,7 +59,7 @@ def logout():
     if not 'logged_in' in session: return ResponseUnauthorized() 
     #session.pop('logged_in', None)
     #return redirect(url_for('index'))
-    return ResponseOK()
+    return ResponseOk()
 
 
 #função para checar no banco se os dados da entrada de login estão corretas de acordo com o banco

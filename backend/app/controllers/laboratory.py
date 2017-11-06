@@ -61,7 +61,7 @@ def UpdateLaboratory():
     if laboratory_exist: return ResponseBadRequest()
     laboratory_update.name = data["name"]
     db.session.commit()
-    return ResponseOK()
+    return ResponseOk()
 
 
 @app.route("/laboratory/delete/<int:ident>", methods=["DELETE"])

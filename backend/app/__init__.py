@@ -28,4 +28,4 @@ manager.add_command("db", MigrateCommand)
 #lm.init_app(app)
 
 from app.models import tables, forms
-from app.controllers import admin, functions, laboratory, loginout, permission, securitykey, schedule, user
+from app.controllers import admin, eventlog, functions, laboratory, loginout, permission, securitykey, schedule, user
