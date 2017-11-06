@@ -1,0 +1,17 @@
+<app-navbar></app-navbar>
+
+<div class="container col-md-6">
+  <br>
+  <h2 align="center">Editar Sala</h2>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="form-group">
+      <label for="inputName">Nome</label>
+      <input [ngModel]="sala.name" name="name"
+      type="text" class="form-control" id="inputname" placeholder="Laboratório">
+    </div>
+    <div align="center">
+      <button (click)="cancel()" type="button" class="btn btn-danger">Cancelar</button>
+      <button type="submit" class="btn btn-success">Confimar</button>
+    </div>
+  </form>
+</div>

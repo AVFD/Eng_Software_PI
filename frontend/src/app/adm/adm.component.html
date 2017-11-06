@@ -26,7 +26,7 @@
               <img src="../assets/edicao_icon.png" width="20" />
             </a>
           </button>
-          <button (click)="deletarAdm(adm.id)"class="btn btn-danger">
+          <button [disabled]="adminsJsonBackEnd.admins.length === 1"(click)="deletarAdm(adm.id)"class="btn btn-danger">
             <a>
               <img src="../assets/remove_icon.png" width="20" />
             </a>
