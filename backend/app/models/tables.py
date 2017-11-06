@@ -1,5 +1,6 @@
 from app import db
 import enum
+
 """Define as classes que serão transformadas em tabelas pelo Flask-SQLAlchemy.
 Observações:
 
@@ -25,6 +26,15 @@ class Profession(enum.Enum):
 	estudante = "Estudante"
 	funcionario = "Funcionario"
 
+
+class DayOfTheWeek(enum.Enum):
+	segunda = "Segunda-feira"
+	terca = "Terça-feira"
+	quarta = "Quarta-feira"
+	quinta = "Quinta-feira"
+	sexta = "Sexta-feira"
+	sabado = "Sábado"
+	domingo = "Domingo"
 
 
 ###############################################
@@ -57,15 +67,17 @@ class Laboratory(db.Model):
 	#__tablename__ = "laboratories"
 
 	id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
-	name = db.Column(db.String(20), nullable = False)
+	name = db.Column(db.String(20), nullable = False, unique = True)
 	permission = db.relationship("Permission", cascade="delete", backref="place", lazy="dynamic")
+	schedule = db.relationship("Schedule", cascade="delete", backref="lab_agenda", lazy="dynamic")
+
 
 class User(db.Model):
 	#__tablename__ = "users"
 
 	id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
 	email = db.Column(db.String(128), nullable = False, unique = True)
-	internal_id = db.Column(db.Integer)
+	internal_id = db.Column(db.Integer, nullable = True, unique = True)
 	security_key_id = db.Column(db.Integer, db.ForeignKey("security_key.id"), nullable = False, unique = True)
 	name = db.Column(db.String(90), nullable = False)
 	profession = db.Column(db.Enum(Profession), nullable = False)
@@ -88,10 +100,9 @@ class AllowedKey(db.Model):
 	#__tablename__ = "allowed_keys"
 
 	id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True) 
-	allowed_key = db.Column(db.String(90), nullable = False)
+	allowed_key = db.Column(db.String(90), nullable = False, unique = True)
 	profession = db.Column(db.Enum(Profession), nullable = False)
-	event_log = db.relationship("EventLog", backref="permission_key")
-
+	user_name = db.Column(db.String(90), nullable = False)
 
 	def __repr__(self):
 		return "<User %r>" % self.user_name
@@ -101,11 +112,12 @@ class Schedule(db.Model):
 	#__tablename__ = "schedules"
 
 	id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
-	start = db.Column(db.DateTime, nullable = False)
-	end = db.Column(db.DateTime, nullable = False)
+	start = db.Column(db.Time, nullable = False)
+	end = db.Column(db.Time, nullable = False)
 	purpouse = db.Column(db.String(45), nullable = False)
-	i_can_enter = db.Column(db.Boolean, nullable = False)
-	weeks_day = db.Column(db.String(45), nullable = False)
+	day_of_the_week = db.Column(db.Enum(DayOfTheWeek), nullable = False)
+	profession = db.Column(db.Enum(Profession), nullable = False)
+	laboratory_id = db.Column(db.Integer, db.ForeignKey("laboratory.id"), nullable = False)
 
 
 class EventLog(db.Model):
@@ -114,26 +126,27 @@ class EventLog(db.Model):
 	id = db.Column(db.Integer, primary_key = True, nullable = False, autoincrement = True)
 	timestamp = db.Column(db.DateTime, nullable = False)
 	event = db.Column(db.String(45), nullable = False)
-	allowed_key_id = db.Column(db.Integer, db.ForeignKey("allowed_key.id"), nullable = False)
+	allowed_key = db.Column(db.Integer, nullable = False)
+	user_name = db.Column(db.String(90), nullable = False)
+	profession = db.Column(db.Enum(Profession), nullable = False)
+	day_of_the_week = db.Column(db.Enum(DayOfTheWeek), nullable = False)
+	laboratory_name = db.Column(db.String(20), nullable = False, unique = True)
 
 db.create_all()
-"""
-	@property
-	def is_authenticated(self):
-		return True
+from app.controllers.functions import SaveToDataBase
+from app.controllers.user import CreateUserData
+from app.controllers.securitykey import InsertSecurityKey, SearchSecurityKey
 
 
-	@property
-	def is_active(self):
-		return True
+if len(Admin.query.all()) == 0:
+	first_admin = Admin(name="Admin", login_name="admin", password="password", email="admin@email.com.br")
+	db.session.add(first_admin)
+	db.session.commit()
 
-
-	@property
-	def is_anonymous(self):
-		return False
-
-
-	@property
-	def get_id(self):
-		return str(self.id)
-"""
+if len(User.query.all()) == 0:
+	data = {"name": "Estudante001", "internal_id": "00000",
+			"email": "estudante001@email.com.br", "profession": "estudante",
+			"security_key" : "990011223344", "permission" : []}
+	InsertSecurityKey(data)
+	sk = SearchSecurityKey(data=data)
+	SaveToDataBase(CreateUserData(data, sk))

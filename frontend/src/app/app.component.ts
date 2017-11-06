@@ -1,3 +1,4 @@
+import { AuthService } from './login/auth.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,19 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
-  mostrarNavbar = false;
 
   constructor(){
-    
   }
-    
-  // ngOnInit(){
-  //   this.authService.mostrarMenuEmitter.subscribe(
-  //     mostrar => this.mostrarNavbar = mostrar
-  //   );
-  // }
-  logout(){
-    // this.authService.mostrarMenuEmitter.unsubscribe();
-    this.mostrarNavbar = false;
+  ngOnInit(){
   }
 }

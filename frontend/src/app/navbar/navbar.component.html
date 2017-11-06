@@ -1,0 +1,27 @@
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #000000;">
+    <a class="navbar-brand" routerLink="/home">Home</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li routerLinkActive="active"
+        class="nav-item">
+          <a class="nav-link" routerLink="/adm">
+            Administradores
+          </a>
+        </li>
+        <li routerLinkActive="active"
+        class="nav-item">
+          <a class="nav-link" routerLink="/usr">
+            Usuários
+          </a>
+        </li>
+        <li routerLinkActive="active" 
+        class="nav-item">
+          <a class="nav-link" routerLink="/salas">
+            Salas
+          </a>
+        </li>
+      </ul>
+      <a (click) = "logout()"class="btn btn-danger" routerLink="" role="button">Logout</a>
+    </div>
+    
+  </nav>

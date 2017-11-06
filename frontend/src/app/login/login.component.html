@@ -1,0 +1,26 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" style="margin-top:90px;">
+
+  <h2>Login</h2>
+  <br>
+  <div class="input">
+    <label>Username</label>
+    <input type="text" name="username" class="form-control" [(ngModel)]="control.username" #username="ngModel" required>
+  </div>
+  <div *ngIf="f.submitted && !username.valid" class="alert alert-danger">
+    <p>O campo username é obrigatório</p>
+  </div>
+  <div class="input">
+    <label>Password</label>
+    <input #password="ngModel" type="password" name="password" [(ngModel)]="control.password" class="form-control" required>
+  </div>
+  <div *ngIf="f.submitted && !password.valid" class="alert alert-danger">
+    <p>O campo password é obrigatório</p>
+  </div>
+  <div class="input">
+    <input class="btn btn-success" type="submit" value="Login" style="margin-left: 120px">
+  </div>
+  <br>
+  <div *ngIf="errormensage" class="alert alert-danger">
+    <p >Usuário ou senha inválidos!</p>
+  </div>
+</form>

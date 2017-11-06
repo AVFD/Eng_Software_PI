@@ -1,0 +1,39 @@
+<app-navbar></app-navbar>
+<br>
+
+<div class="container">
+  <a style="float:right;" routerLink="/adm/create" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
+      <img src="../assets/add_icon.png" width="50" />
+  </a>
+  <br>
+  <br>
+  <br>
+  <table class="table table-hover ">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Gerenciar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let adm of adminsJsonBackEnd.admins">
+        <td>{{ adm.name }}</td>
+        <td>{{ adm.email }}</td>
+        <td>
+          <button (click)="editar(adm.id)" class="btn btn-primary">
+            <a>
+              <img src="../assets/edicao_icon.png" width="20" />
+            </a>
+          </button>
+          <button (click)="deletarAdm(adm.id)"class="btn btn-danger">
+            <a>
+              <img src="../assets/remove_icon.png" width="20" />
+            </a>
+          </button>
+          
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
