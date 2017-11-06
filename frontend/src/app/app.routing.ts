@@ -1,7 +1,9 @@
-import { UsrEditComponent } from './usr/usr-edit/usr-edit.component';
+import { SalasEditComponent } from './salas/salas-edit/salas-edit.component';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from "@angular/router";
 
+import { SalasFormComponent } from './salas/salas-form/salas-form.component';
+import { UsrEditComponent } from './usr/usr-edit/usr-edit.component';
 import { UsrFormComponent } from './usr/usr-form/usr-form.component';
 import { AdmEditComponent } from './adm/adm-edit/adm-edit.component';
 import { AdmFormComponent } from './adm/adm-form/adm-form.component';
@@ -20,8 +22,10 @@ const APP_ROUTES: Routes = [
     { path: 'usr', component: UsrComponent, canActivate:[AuthGuard]},
     { path: 'salas', component: SalasComponent, canActivate:[AuthGuard]},
     { path: 'adm', component: AdmComponent, canActivate:[AuthGuard]},
+    { path: 'salas/create', component: SalasFormComponent, canActivate:[AuthGuard]},
     { path: 'adm/create', component: AdmFormComponent, canActivate:[AuthGuard]},
     { path: 'usr/create', component: UsrFormComponent, canActivate:[AuthGuard]},
+    { path: 'salas/:id', component: SalasEditComponent, canActivate:[AuthGuard]},
     { path: 'usr/:id', component: UsrEditComponent, canActivate:[AuthGuard]},
     { path: 'adm/:id', component: AdmEditComponent, canActivate:[AuthGuard]},
     { path: '', pathMatch: 'full', redirectTo: 'login' },

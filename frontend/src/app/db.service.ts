@@ -20,6 +20,7 @@ export class DbService {
   private deletarUsersURL:string = ip+"/user/delete";
 
   constructor(private http:Http) { }
+
   //salas
   getSalas(){
     return this.http.get(this.listaSalaURL);
@@ -27,7 +28,7 @@ export class DbService {
   adicionarSala(salaJson){
     return this.http.post(this.criarSalaURL, salaJson);
   }
-  removeSala(id){
+  removerSala(id){
     return this.http.delete(this.deletarSalaURL+"/"+id);
   }
   getSala(id){

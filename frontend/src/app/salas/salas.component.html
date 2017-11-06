@@ -2,7 +2,7 @@
 <br>
 
 <div class="container">
-  <a style="float:right;"href="#" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
+  <a style="float:right;" routerLink="/salas/create" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
       <img src="../assets/add2_icon.png" width="50" />
   </a>
   <br>
@@ -19,12 +19,12 @@
       <tr *ngFor="let salas of salasJsonBackEnd.laboratories">
         <td>{{ salas.name }}</td>
         <td>
-          <button class="btn btn-primary">
+          <button (click)="editarSala(salas.id)" class="btn btn-primary">
             <a>
               <img src="../assets/edit2_icon.png" width="20" />
             </a>
           </button>
-          <button (click)="removeSala(salas.id)"class="btn btn-danger">
+          <button  (click)="removeSala(salas.id)"class="btn btn-danger">
             <a>
               <img src="../assets/remove_icon.png" width="20" />
             </a>

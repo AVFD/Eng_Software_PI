@@ -11,7 +11,7 @@ import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts} from 'angu
 export class UsrEditComponent implements OnInit {
   optionsModel = [];
   profissoes = ['funcionario', 'estudante', 'zelador', 'professor'];
-  user = {}
+  user:any = {}
   profissao:string;
   salas = []
   id:string;
@@ -51,9 +51,9 @@ export class UsrEditComponent implements OnInit {
         this.salas.push(this.myOptions[j].name);
       }
       this.user = {
+        'id': this.id,
         'email': form.value.email,
         'internal_id': form.value.ri,
-        "security_key": form.value.rfid,
         "name": form.value.name,
         "profession": this.profissao,
         "permission": this.salas
@@ -64,20 +64,22 @@ export class UsrEditComponent implements OnInit {
         this.router.navigate(['/usr'])
       })
       .catch(er =>{
-        alert('Erro ao editar usuário!');
-        // if(er.status === 409){
-        //   alert('Usuário ou email ja cadastrados!')
-        // }else if(er.status === 0){
-        //   alert('Não foi possivel conectar com o banco, tente novamente mais tarde!');
-        // }
+        if(er.status === 400){
+          alert('Usuário não encontrado!');
+          this.router.navigate(['/usr']);
+        }else
+          alert('Erro ao editar usuário!');
       });
     }
   }
   ngOnInit() {
     this.routeActive.params.subscribe((params:any)=>this.id = params['id']);
-    this.dbService.getUser(this.id).map(res=>res.json()).toPromise()
+    this.dbService.getUser(this.id)
+    .map(res=>res.json())
+    .toPromise()
     .then(data => {
       this.user = data.user
+      console.log(this.user)
     })
     .catch(er => alert('Erro: '+er.status+' ao listar as salas'))
 
@@ -87,6 +89,7 @@ export class UsrEditComponent implements OnInit {
     })
     .catch(er => alert('Erro: '+er.status+' ao listar as salas'))
 
+    this.optionsModel = this.user.permission;
   }
   cancel(){
     this.router.navigate(['usr']);
@@ -94,4 +97,5 @@ export class UsrEditComponent implements OnInit {
   profissaoSelected(profissao){
     this.profissao = profissao
   }
+
 }

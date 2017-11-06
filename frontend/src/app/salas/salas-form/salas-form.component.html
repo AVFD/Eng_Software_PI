@@ -1,0 +1,23 @@
+<app-navbar></app-navbar>
+<div class="container col-md-6">
+  <br>
+  <h2 align="center">Cadastro de Salas</h2>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="form-group">
+      <label for="inputName">Nome</label>
+      <input (ngModel)="control.name" #name="ngModel" name="name" type="text" class="form-control" id="inputname" placeholder="Laboratório"
+        required>
+      <small id="usuarioHelp" class="form-text text-muted">
+        Informe o nome do laboratório.
+      </small>
+    </div>
+    <div align="center">
+      <button (click)="cancel()" type="button" class="btn btn-danger">Cancelar</button>
+      <button type="submit" class="btn btn-success">Criar</button>
+    </div>
+    <br>
+    <div class="alert alert-danger" *ngIf="form.submitted && !name.valid">
+      <p align="center">O campo nome é obrigatório!</p>
+    </div>
+  </form>
+</div>

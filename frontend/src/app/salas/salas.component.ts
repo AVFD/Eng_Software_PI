@@ -1,5 +1,7 @@
-import { DbService } from './../db.service';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+
+import { DbService } from './../db.service';
 
 @Component({
   selector: 'app-salas',
@@ -8,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SalasComponent implements OnInit {
   salasJsonBackEnd:any = [];
-  constructor(private dbService:DbService) { }
+  constructor(
+    private dbService:DbService,
+    private router:Router
+  ) { }
 
   ngOnInit() {
     this.dbService
@@ -19,9 +24,11 @@ export class SalasComponent implements OnInit {
     });
   }
   removeSala(id){
-    this.dbService.removeSala(id).subscribe();
+    this.dbService.removerSala(id).subscribe();
     this.ngOnInit();
     this.ngOnInit();
   }
-
+  editarSala(id){
+    this.router.navigate(['salas', id]);
+  }
 }
