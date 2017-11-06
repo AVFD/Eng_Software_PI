@@ -24,9 +24,9 @@ def CreateUser():
 
     #Fazer a inserção da security key. O retorno é um dicionario
     result = InsertSecurityKey(data)
-    insertion_result_list["security key"] = result["state"]
+    insertion_result_list["security_key"] = result["state"]
     #Se teve sucesso na inserção da security key ou já existe...
-    if insertion_result_list["security key"] == "fail": return ResponseBadRequest()
+    if insertion_result_list["security_key"] == "fail": return ResponseBadRequest()
 
     if SearchUser(data=data):
         insertion_result_list["user"] = "exist"
@@ -46,15 +46,22 @@ def ReadUser(ident):
     #if not 'logged_in' in session: return ResponseUnauthorized()
         if request.method != "GET": return ResponseMethodNotAllowed()
         output = []
+        users = []
         user_data = {}
         if ident:
-            user = User.query.filter_by(id=ident).first()
-            if not user: return ResponseNotFound()
+            users.append(User.query.filter_by(id=ident).first())
+        else:
+            users = User.query.all()
+            
+        if users[0] == None: return ResponseNotFound()
+
+        for user in users:
             permissions = Permission.query.filter_by(user_id=user.id).all()
             allowed_labs = []
             for permission in permissions:
                 laboratory = Laboratory.query.filter_by(id=permission.laboratory_id).first()
-                allowed_labs.append(laboratory.name)
+                allowed_labs.append({"laboratory_id": laboratory.id, "laboratory_name": laboratory.name})
+
             sk = SearchSecurityKey(ident=user.security_key_id)
             user_data['email'] = user.email
             user_data['security_key'] = sk.security_key
@@ -63,32 +70,10 @@ def ReadUser(ident):
             user_data['id'] = user.id
             user_data['permission'] = allowed_labs
             user_data["profession"] = user.profession.value
-            #print("valor dessa key {}".format(Profession(1)))
-            print(Profession("Estudante"))
-            
-            return jsonify({"user": user_data})
-                
-        else:
-            users = User.query.all()
-            print(users)
-            for user in users:
-                permissions = Permission.query.filter_by(user_id=user.id).all()
-                allowed_labs = []
-                for permission in permissions:
-                    laboratory = Laboratory.query.filter_by(id=permission.laboratory_id).first()
-                    allowed_labs.append(laboratory.name)
-                sk = SearchSecurityKey(ident=user.security_key_id)
-                user_data['email'] = user.email
-                user_data['security_key'] = sk.security_key
-                user_data['internal_id'] = user.internal_id
-                user_data['name'] = user.name
-                user_data['id'] = user.id
-                user_data['permission'] = allowed_labs
-                user_data['profession'] = user.profession.value
-                output.append(user_data)
-                user_data = {}
+            output.append(user_data)
+            user_data = {}
 
-            return jsonify({'users' : output})#200-OK
+        return jsonify({'users' : output})#200-OK
 
 
 @app.route("/user/update", methods=["PUT"])
@@ -103,9 +88,10 @@ def UpdateUser():
     user_update.email = data['email']
     user_update.internal_id = data['internal_id']
     user_update.profession = data['profession']
+    print("Valor do data[profession]: {0}\nTIpo da variável: {1}".format(data['profession'], type(data['profession'])))
     if user_update.profession == Profession.estudante:
         user_data["profession"] = "Estudante"
-    permissions_delete = SearchPermission(user=user_update)
+    permissions_delete = SearchPermission(user_data=user_update)
     MassiveDeleteFromDataBase(permissions_delete)
     InsertPermission(data)
     db.session.commit()
