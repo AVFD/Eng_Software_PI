@@ -90,10 +90,8 @@ def UpdateUser():
     user_update.name = data['name']
     user_update.email = data['email']
     user_update.internal_id = data['internal_id']
-    user_update.profession = data['profession']
-    print("Valor do data[profession]: {0}\nTIpo da variável: {1}".format(data['profession'], type(data['profession'])))
-    if user_update.profession == Profession.estudante:
-        user_data["profession"] = "Estudante"
+    user_update.profession = Profession(data['profession']).name
+
     permissions_delete = SearchPermission(user_data=user_update)
     MassiveDeleteFromDataBase(permissions_delete)
     InsertPermission(data)
@@ -133,4 +131,15 @@ def SearchUser(check=None, data=None, ident=None):
 
     elif ident:
         return User.query.filter_by(id=ident).first()
-    
+
+"""    
+    elif check:
+        check_user = User.query.filter_by(id=check['id'], name=check['name'], email=check['email'], internal_id=check['internal_id'], profession=Profession(check['profession']).name).first()
+        if not check_user: return None
+        check_user_permissions = SearchPermission(user_data=check_user)
+
+        for permission in check_user_permissions:
+            if permission.laboratory_id in check_user_permissions == False:
+                return None
+        return check_user
+"""
