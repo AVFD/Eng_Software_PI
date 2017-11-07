@@ -21,13 +21,13 @@ export class UsrFormComponent implements OnInit {
   ) { }
 
   // Settings configuration
-  mySettings: IMultiSelectSettings = {
+  mySettingx: IMultiSelectSettings = {
     showCheckAll: true,
     showUncheckAll: true,
     isLazyLoad: true,
     checkedStyle: 'fontawesome',
     buttonClasses: 'btn btn-default btn-block',
-    dynamicTitleMaxItems: 6,
+    dynamicTitleMaxItems: 10,
     displayAllSelectedText: true
   };
 
@@ -36,14 +36,14 @@ export class UsrFormComponent implements OnInit {
     checkAll: 'Marcar todos',
     uncheckAll: 'Desmarcar todos',
     checked: 'Item marcado!',
-    searchEmptyResult:'Vazio...',
     checkedPlural: 'Itens marcados!',
-    defaultTitle: 'Selecione as Salas',
+    defaultTitle: 'Selecione os números',
     allSelected: 'Todos selecionados!',
   };
 
 // Labels / Parents
   myOptions: IMultiSelectOption[];
+  
   onSubmit(form){
     if(form.valid){
       for(let j = 0; j < this.optionsModel.length; j++){

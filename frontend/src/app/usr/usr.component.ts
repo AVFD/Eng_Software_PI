@@ -21,7 +21,7 @@ export class UsrComponent implements OnInit {
     .getUsers()
     .map(res => res.json())
     .subscribe(data => {
-      this.usrJsonBackEnd = data
+      this.usrJsonBackEnd = data.users
     });
   }
   removeUser(id){

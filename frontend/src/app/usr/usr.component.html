@@ -20,7 +20,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let usr of usrJsonBackEnd.users">
+      <tr *ngFor="let usr of usrJsonBackEnd">
         <td>{{ usr.name }}</td>
         <td>{{ usr.email }}</td>
         <td>{{ usr.internal_id }}</td>
@@ -33,7 +33,7 @@
             </button>
             <ul *dropdownMenu class="dropdown-menu" role="menu">
               <li *ngFor="let permissao of usr.permission" role="menuitem">
-                <a class="dropdown-item" >{{ permissao }}</a>
+                <a class="dropdown-item" >{{ permissao.laboratory_name }}</a>
               </li>
             </ul>
           </div>

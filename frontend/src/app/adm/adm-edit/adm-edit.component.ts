@@ -33,7 +33,6 @@ export class AdmEditComponent implements OnInit {
       'password': form.value.password,
       'email': form.value.email
     }
-    console.log(this.adminSelected)
     this.dbService.updateAdministrador(this.adminSelected).toPromise()
     .then(res=>{
       alert('Administrador editado com sucesso!')

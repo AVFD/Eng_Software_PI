@@ -18,20 +18,22 @@ export class SalasFormComponent implements OnInit {
   ngOnInit() {
   }
   onSubmit(form){
-    this.sala = {
-      'name': form.value.name
-    };
-    this.dbService.adicionarSala(this.sala)
-    .toPromise()
-    .then(response => {
-      alert('Sala cadastrada com sucesso!');
-      this.router.navigate(['/salas']);
-    })
-    .catch(er => {
-      if(er.status === 409){
-        alert('Essa sala já existe!');
-      }
-    })
+    if(form.valid){
+      this.sala = {
+        'name': form.value.name
+      };
+      this.dbService.adicionarSala(this.sala)
+      .toPromise()
+      .then(response => {
+        alert('Sala cadastrada com sucesso!');
+        this.router.navigate(['/salas']);
+      })
+      .catch(er => {
+        if(er.status === 409){
+          alert('Essa sala já existe!');
+        }
+      })
+    }
   }
   cancel(){
     this.router.navigate(['/salas']);
