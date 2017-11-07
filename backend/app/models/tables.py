@@ -38,7 +38,7 @@ class Profession(enum.Enum):
 	zelador = "Zelador(a)"
 	professor = "Professor(a)"
 	estudante = "Estudante"
-	funcionario = "Funcionario"
+	funcionario = "Funcionário(a)"
 
 
 ###############################################

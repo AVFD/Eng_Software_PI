@@ -7,7 +7,7 @@ from app.models.forms import LoginForm
 import json
 
 from app.controllers.functions import SaveToDataBase, DeleteFromDataBase
-from app.controllers.functions import ResponseBadRequest, ResponseCreated, ResponseGone, ResponseConflict
+from app.controllers.functions import ResponseBadRequest, ResponseCreated, ResponseConflict
 from app.controllers.functions import ResponseMethodNotAllowed, ResponseNotFound#, ResponseOk
 
 
@@ -79,7 +79,7 @@ def DeleteAdmin(ident):
     if not admin_delete: return ResponseNotFound()
     if len(Admin.query.all()) == 1: return ResponseMethodNotAcceptable()
     DeleteFromDataBase(admin_delete)
-    return ResponseGone()
+    return ResponseOk()
 
 
 def CreateAdminData(data, hashed_password):

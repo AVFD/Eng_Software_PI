@@ -5,7 +5,7 @@ from app.models.tables import DayOfTheWeek, Laboratory, Profession, Permission, 
 from app.models.forms import LoginForm
 
 from app.controllers.functions import (SaveToDataBase, DeleteFromDataBase,
-ResponseBadRequest, ResponseCreated, ResponseGone, ResponseConflict,
+ResponseBadRequest, ResponseCreated, ResponseConflict,
 ResponseMethodNotAllowed, ResponseNotFound)
 from app.controllers.laboratory import SearchLaboratory
 import json
@@ -88,7 +88,7 @@ def DeleteSchedule(ident):
     schedule_delete = SearchSchedule(ident=ident)
     if not schedule_delete: return ResponseNotFound()
     DeleteFromDataBase(schedule_delete)
-    return ResponseGone()
+    return ResponseOk()
 
 
 def CanCreateNewSchedule(data):

@@ -5,7 +5,7 @@ from app.models.tables import DayOfTheWeek, Event, EventLog, Laboratory, Profess
 from app.models.forms import LoginForm
 
 from app.controllers.functions import (SaveToDataBase, DeleteFromDataBase,
-ResponseBadRequest, ResponseCreated, ResponseGone, ResponseConflict,
+ResponseBadRequest, ResponseCreated, ResponseConflict,
 ResponseMethodNotAllowed, ResponseNotFound, ResponseOk)
 
 import json
@@ -77,7 +77,7 @@ def DeleteEventLog(ident):
     event_log_delete = SearchSchedule(ident=ident)
     if not event_log_delete: return ResponseNotFound()
     DeleteFromDataBase(event_log_delete)
-    return ResponseGone()
+    return ResponseOk()
 
 
 def CreateEventLogData(data):

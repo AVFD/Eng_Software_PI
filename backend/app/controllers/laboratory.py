@@ -5,7 +5,7 @@ from app.models.tables import Laboratory, Profession, Permission, SecurityKey, U
 from app.models.forms import LoginForm
 
 from app.controllers.functions import SaveToDataBase, DeleteFromDataBase
-from app.controllers.functions import ResponseBadRequest, ResponseCreated, ResponseGone, ResponseConflict
+from app.controllers.functions import ResponseBadRequest, ResponseCreated, ResponseConflict
 from app.controllers.functions import ResponseMethodNotAllowed, ResponseNotFound#, ResponseOk
 
 import json
@@ -73,7 +73,7 @@ def DeleteLaboratory(ident):
     target_laboratory_id = laboratory_delete.id
     if not laboratory_delete: return ResponseNotFound()
     DeleteFromDataBase(laboratory_delete)
-    return ResponseGone()
+    return ResponseOk()
 
 
 def SearchLaboratory(data=None, name=None, ident=None):

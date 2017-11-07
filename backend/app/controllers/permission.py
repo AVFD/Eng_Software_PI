@@ -38,10 +38,11 @@ def InsertPermission(data):
 
 
 def SearchPermission(data=None, user_data=None, laboratory=None):
-    if user_data and laboratory:
-        return Permission.query.filter_by(user_id=user_data.id, laboratory_id=laboratory.id).first()
-    elif user_data:
-        return Permission.query.filter_by(user_id=user_data.id).all()
+    if user_data:
+        if laboratory:
+            return Permission.query.filter_by(user_id=user_data.id, laboratory_id=laboratory.id).first()
+        else:
+            return Permission.query.filter_by(user_id=user_data.id).all()
     elif laboratory:
         return Permission.query.filter_by(laboratory_id=laboratory_id).all()
 
