@@ -1,7 +1,7 @@
 from flask import jsonify, request, session
 from app import app, db
 
-from app.models.tables import DayOfTheWeek, EventLog, Laboratory, Profession, Permission, Schedule, SecurityKey, User
+from app.models.tables import DayOfTheWeek, Event, EventLog, Laboratory, Profession, Permission, Schedule, SecurityKey, User
 from app.models.forms import LoginForm
 
 from app.controllers.functions import (SaveToDataBase, DeleteFromDataBase,
@@ -48,21 +48,22 @@ def ReadEventLog(ident):
     output = []
     event_logs = []
     if ident:
-        event_logs.append(Schedule.query.filter_by(id=ident).first())
+        event_logs.append(EventLog.query.filter_by(id=ident).first())
     else:
-        event_logs = Schedule.query.all()
+        event_logs = EventLog.query.all()
     
     if event_logs[0] == None: return ResponseNotFound()
 
     for event_log in event_logs:
         event_log_data = {}
         event_log_data['id'] = event_log.id
-        event_log_data['start'] = event_log.start.__str__()
-        event_log_data['end'] = event_log.end.__str__()
-        event_log_data['purpouse'] = event_log.purpouse
-        event_log_data['day_of_the_week'] = event_log.day_of_the_week.value
+        event_log_data['timestamp'] = event_log.timestamp.__str__()
+        event_log_data['event'] = event_log.event.value
+        event_log_data['security_key'] = event_log.security_key
+        event_log_data['user_name'] = event_log.user_name
         event_log_data['profession'] = event_log.profession.value
-        event_log_data['laboratory_id'] = event_log.laboratory_id
+        event_log_data['day_of_the_week'] = event_log.day_of_the_week.value
+        event_log_data['laboratory_name'] = event_log.laboratory_name
         output.append(event_log_data)
     
     return jsonify({"event_logs": output})
