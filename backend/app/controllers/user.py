@@ -5,10 +5,10 @@ from app.models.tables import Laboratory, Profession, Permission, SecurityKey, U
 from app.models.forms import LoginForm
 
 from app.controllers.functions import SaveToDataBase, DeleteFromDataBase, MassiveDeleteFromDataBase
-from app.controllers.functions import ResponseBadRequest, ResponseCreated, ResponseGone, ResponseConflict
+from app.controllers.functions import ResponseBadRequest, ResponseCreated, ResponseConflict
 from app.controllers.functions import ResponseMethodNotAllowed, ResponseNotFound#, ResponseOk
 from app.controllers.permission import InsertPermission, SearchPermission
-from app.controllers.securitykey import InsertSecurityKey, SearchSecurityKey
+from app.controllers.securitykey import InsertSecurityKey, SearchSecurityKey, DeleteSecurityKey
 
 import json
 
@@ -82,6 +82,9 @@ def UpdateUser():
     #if not 'logged_in' in session: ResponseUnauthorized()
     if request.method != "PUT": return ResponseMethodNotAllowed()
     data = request.get_json()
+
+    #checa se realmente ouve auteração
+    if not SearchUser(check=data): return ResponseConflict()
     user_update = SearchUser(ident=data["id"])
     if not user_update: return ResponseBadRequest() 
     user_update.name = data['name']
@@ -108,7 +111,7 @@ def DeleteUser(ident):
     target_user_id = user_delete.id
     DeleteFromDataBase(user_delete)
     result = DeleteSecurityKey(target_user_id)
-    return ResponseGone()
+    return ResponseOk()
 
 
 def CreateUserData(data, sk):
@@ -116,7 +119,7 @@ def CreateUserData(data, sk):
                 profession=Profession(data["profession"]).name, access_key=sk)
 
 
-def SearchUser(data=None, ident=None):
+def SearchUser(check=None, data=None, ident=None):
     if data:
         conflict_by_email = User.query.filter_by(email=data["email"]).first()
         if conflict_by_email: return conflict_by_email
@@ -129,4 +132,4 @@ def SearchUser(data=None, ident=None):
         return User.query.filter_by(access_key=sk).first()
 
     elif ident:
-        return User.query.filter_by(id=ident).first() 
+        return User.query.filter_by(id=ident).first()

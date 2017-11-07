@@ -11,7 +11,7 @@ from app.models.forms import LoginForm
 #Continua sendo JSON mas a leitura e o visual fica comprometido.
 
 from app.controllers.functions import SaveToDataBase, DeleteFromDataBase
-from app.controllers.functions import ResponseAccepted, ResponseBadRequest, ResponseCreated, ResponseGone
+from app.controllers.functions import ResponseAccepted, ResponseBadRequest, ResponseCreated
 from app.controllers.functions import ResponseMethodNotAllowed, ResponseNotFound, ResponseUnauthorized
 
 import json
