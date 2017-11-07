@@ -113,7 +113,7 @@ def DeleteUser(ident):
 
 def CreateUserData(data, sk):
     return User(name=data["name"], email=data["email"], internal_id=data["internal_id"],
-                profession=data["profession"], access_key=sk)
+                profession=Profession(data["profession"]).name, access_key=sk)
 
 
 def SearchUser(data=None, ident=None):
