@@ -7,7 +7,7 @@
 
 # dependencies
 frontend/node_modules
-backend/*
+backend/*.pyc
 
 # IDEs and editors
 /.idea
