@@ -10,9 +10,9 @@ from app.models.forms import LoginForm
 #Se antes de passar fazer um json.dumps, destroi a estrutura json.
 #Continua sendo JSON mas a leitura e o visual fica comprometido.
 
-from app.controllers.functions import SaveToDataBase, DeleteFromDataBase
-from app.controllers.functions import ResponseAccepted, ResponseBadRequest, ResponseCreated
-from app.controllers.functions import ResponseMethodNotAllowed, ResponseNotFound, ResponseUnauthorized
+from app.controllers.functions import (SaveToDataBase, DeleteFromDataBase,
+ResponseAccepted, ResponseBadRequest, ResponseCreated,
+ResponseMethodNotAllowed, ResponseNotFound, ResponseUnauthorized)
 
 import json
 
@@ -54,7 +54,6 @@ def do_admin_login():
 #deslogar o user
 @app.route("/logout", methods=['GET'])
 def logout():
-    from app.controllers.functions import ResponseOk
     if request.method!="GET": return ResponseMethodNotAllowed()
     if not 'logged_in' in session: return ResponseUnauthorized() 
     #session.pop('logged_in', None)

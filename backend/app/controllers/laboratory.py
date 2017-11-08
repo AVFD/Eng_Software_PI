@@ -4,9 +4,9 @@ from app import app, db
 from app.models.tables import Laboratory, Profession, Permission, SecurityKey, User
 from app.models.forms import LoginForm
 
-from app.controllers.functions import SaveToDataBase, DeleteFromDataBase
-from app.controllers.functions import ResponseBadRequest, ResponseCreated, ResponseConflict
-from app.controllers.functions import ResponseMethodNotAllowed, ResponseNotFound#, ResponseOk
+from app.controllers.functions import (SaveToDataBase, DeleteFromDataBase,
+ResponseBadRequest, ResponseCreated, ResponseConflict,
+ResponseMethodNotAllowed, ResponseNotFound, ResponseOk)
 
 import json
 
@@ -51,7 +51,6 @@ def ReadLaboratory(ident):
 
 @app.route("/laboratory/update", methods=["PUT"])
 def UpdateLaboratory():
-    from app.controllers.functions import ResponseOk
     #if not 'logged_in' in session: return ResponseUnauthorized()
     if request.method != "PUT": return ResponseMethodNotAllowed()
     data = request.get_json()

@@ -37,11 +37,22 @@ def InsertPermission(data):
     return {"message": "Have permissions alredy exists", "state": "exist"}
 
 
+def UpdatePermission(data):
+    from app.controllers.user import SearchUser
+    user_data = SearchUser(data=data)
+    for lab_id in data['allowed_laboratories_id']:
+        laboratory = SearchLaboratory(ident=lab_id)
+        if not SearchPermission(data=data, user_data=user_data, laboratory=laboratory):
+            SaveToDataBase(CreatePermissionData(user_data, laboratory))
+
+
 def SearchPermission(data=None, user_data=None, laboratory=None):
     if user_data:
         if laboratory:
+            print("RETORNO 1")
             return Permission.query.filter_by(user_id=user_data.id, laboratory_id=laboratory.id).first()
         else:
+            print("RETORNO 2")
             return Permission.query.filter_by(user_id=user_data.id).all()
     elif laboratory:
         return Permission.query.filter_by(laboratory_id=laboratory_id).all()

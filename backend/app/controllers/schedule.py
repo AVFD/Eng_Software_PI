@@ -6,7 +6,7 @@ from app.models.forms import LoginForm
 
 from app.controllers.functions import (SaveToDataBase, DeleteFromDataBase,
 ResponseBadRequest, ResponseCreated, ResponseConflict,
-ResponseMethodNotAllowed, ResponseNotFound)
+ResponseMethodNotAllowed, ResponseNotFound, ResponseOk)
 from app.controllers.laboratory import SearchLaboratory
 import json
 import datetime
@@ -61,7 +61,6 @@ def ReadSchedule(ident):
 
 @app.route("/schedule/update", methods=["PUT"])
 def UpdateSchedule():
-    from app.controllers.functions import ResponseOk
     #if not 'logged_in' in session: return ResponseUnauthorized()
     if request.method != "PUT": return ResponseMethodNotAllowed()
 
