@@ -6,9 +6,9 @@ from app.models.tables import Admin
 from app.models.forms import LoginForm
 import json
 
-from app.controllers.functions import SaveToDataBase, DeleteFromDataBase
-from app.controllers.functions import ResponseBadRequest, ResponseCreated, ResponseConflict
-from app.controllers.functions import ResponseMethodNotAllowed, ResponseNotFound#, ResponseOk
+from app.controllers.functions import (DeleteFromDataBase, SaveToDataBase, 
+ResponseBadRequest, ResponseCreated, ResponseConflict,
+ResponseMethodNotAllowed, ResponseNotFound, ResponseOk)
 
 
 @app.route("/admin/create", methods=["POST"])
@@ -54,7 +54,6 @@ def ReadAdmin(ident):
 
 @app.route("/admin/update", methods=["PUT"])
 def UpdateAdmin():
-    from app.controllers.functions import ResponseOk
     #if not 'logged_in' in session: return ResponseUnauthorized()
     if request.method != "PUT": return ResponseMethodNotAllowed()
     data = request.get_json()

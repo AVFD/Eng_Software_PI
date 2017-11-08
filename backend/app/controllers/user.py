@@ -4,10 +4,11 @@ from app import app, db
 from app.models.tables import Laboratory, Profession, Permission, SecurityKey, User
 from app.models.forms import LoginForm
 
-from app.controllers.functions import SaveToDataBase, DeleteFromDataBase, MassiveDeleteFromDataBase
-from app.controllers.functions import ResponseBadRequest, ResponseCreated, ResponseConflict
-from app.controllers.functions import ResponseMethodNotAllowed, ResponseNotFound#, ResponseOk
-from app.controllers.permission import InsertPermission, SearchPermission
+from app.controllers.functions import (DeleteFromDataBase,
+MassiveDeleteFromDataBase, SaveToDataBase, ResponseBadRequest,
+ResponseCreated, ResponseConflict, ResponseMethodNotAllowed,
+ResponseNotFound, ResponseOk)
+from app.controllers.permission import InsertPermission, SearchPermission, UpdatePermission
 from app.controllers.securitykey import InsertSecurityKey, SearchSecurityKey, DeleteSecurityKey
 
 import json
@@ -78,13 +79,15 @@ def ReadUser(ident):
 
 @app.route("/user/update", methods=["PUT"])
 def UpdateUser():
-    from app.controllers.functions import ResponseOk
     #if not 'logged_in' in session: ResponseUnauthorized()
     if request.method != "PUT": return ResponseMethodNotAllowed()
     data = request.get_json()
 
     #checa se realmente ouve auteração
-    if not SearchUser(check=data): return ResponseConflict()
+    if SearchUser(check=data):
+        print("Tá tentando atualizar com o mesmo conteúdo")
+        return ResponseConflict()
+
     user_update = SearchUser(ident=data["id"])
     if not user_update: return ResponseBadRequest() 
     user_update.name = data['name']
@@ -94,7 +97,7 @@ def UpdateUser():
 
     permissions_delete = SearchPermission(user_data=user_update)
     MassiveDeleteFromDataBase(permissions_delete)
-    InsertPermission(data)
+    UpdatePermission(data)
     db.session.commit()
     return ResponseOk()
 
@@ -132,14 +135,20 @@ def SearchUser(check=None, data=None, ident=None):
     elif ident:
         return User.query.filter_by(id=ident).first()
 
-"""    
     elif check:
         check_user = User.query.filter_by(id=check['id'], name=check['name'], email=check['email'], internal_id=check['internal_id'], profession=Profession(check['profession']).name).first()
-        if not check_user: return None
+        if not check_user:
+            print("Atualização com dados distintos")
+            return None
         check_user_permissions = SearchPermission(user_data=check_user)
-
+        print("allowed laboratories id")
+        print(check['allowed_laboratories_id'])
         for permission in check_user_permissions:
-            if permission.laboratory_id in check_user_permissions == False:
+            print("permission_id")
+            print(type(permission.laboratory_id))
+            result = permission.laboratory_id in check['allowed_laboratories_id']
+            print("Resultado: {}".format(result))
+            if result == False:
+                print("Só está atualizando a permissão")
                 return None
         return check_user
-"""
