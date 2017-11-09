@@ -35,8 +35,8 @@ def CreateUser():
         sk = SearchSecurityKey(data=data)
         insertion_result_list["user"] = SaveToDataBase(CreateUserData(data, sk))
 
-    result = InsertPermission(data)
-    insertion_result_list["permission"] = result["state"]
+    result = UpdatePermission(data)
+    insertion_result_list["allowed_lab_id"] = result["state"]
     if insertion_result_list["user"] == "success": return ResponseCreated()
     elif insertion_result_list["user"] == "exist": return ResponseConflict()
 
@@ -85,7 +85,7 @@ def UpdateUser():
 
     #checa se realmente ouve auteração
     if SearchUser(check=data):
-        print("Tá tentando atualizar com o mesmo conteúdo")
+        #print("Tá tentando atualizar com o mesmo conteúdo")
         return ResponseConflict()
 
     user_update = SearchUser(ident=data["id"])
@@ -138,17 +138,12 @@ def SearchUser(check=None, data=None, ident=None):
     elif check:
         check_user = User.query.filter_by(id=check['id'], name=check['name'], email=check['email'], internal_id=check['internal_id'], profession=Profession(check['profession']).name).first()
         if not check_user:
-            print("Atualização com dados distintos")
+            #print("Atualização com dados distintos")
             return None
         check_user_permissions = SearchPermission(user_data=check_user)
-        print("allowed laboratories id")
-        print(check['allowed_laboratories_id'])
         for permission in check_user_permissions:
-            print("permission_id")
-            print(type(permission.laboratory_id))
-            result = permission.laboratory_id in check['allowed_laboratories_id']
-            print("Resultado: {}".format(result))
+            result = permission.laboratory_id in check['allowed_lab_id']
             if result == False:
-                print("Só está atualizando a permissão")
+                #print("Só está atualizando a permissão")
                 return None
         return check_user
