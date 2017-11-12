@@ -31,7 +31,7 @@ class DayOfTheWeek(enum.Enum):
 
 class Event(enum.Enum):
 	entrada = "Entrada"
-	saida = "Saida"
+	saida = "Saída"
 
 
 class Profession(enum.Enum):

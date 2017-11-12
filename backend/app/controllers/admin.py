@@ -6,7 +6,7 @@ from app.models.tables import Admin
 from app.models.forms import LoginForm
 import json
 
-from app.controllers.functions import (DeleteFromDataBase, SaveToDataBase, 
+from app.controllers.functions import (DeleteFromDataBase, IsString, SaveToDataBase, 
 ResponseBadRequest, ResponseCreated, ResponseConflict,
 ResponseMethodNotAllowed, ResponseNotFound, ResponseOk)
 
@@ -16,7 +16,7 @@ def CreateAdmin():
     #if not 'logged_in' in session: return ResponseUnauthorized()
     if request.method != "POST": return ResponseMethodNotAllowed()
     data = request.get_json()
-
+    if not IsString(data['name']): return ResponseBadRequest()
     #criptografar a senha que vem do Json
     hashed_password = generate_password_hash(data['password'], method='sha256')
 
@@ -57,6 +57,7 @@ def UpdateAdmin():
     #if not 'logged_in' in session: return ResponseUnauthorized()
     if request.method != "PUT": return ResponseMethodNotAllowed()
     data = request.get_json()
+    if not IsString(data['name']): return ResponseBadRequest()
     admin_update = SearchAdmin(ident=data["id"])
     if not admin_update: return ResponseBadRequest()
     hashed_password = generate_password_hash(data['password'], method='sha256')

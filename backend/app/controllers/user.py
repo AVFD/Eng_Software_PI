@@ -4,7 +4,7 @@ from app import app, db
 from app.models.tables import Laboratory, Profession, Permission, SecurityKey, User
 from app.models.forms import LoginForm
 
-from app.controllers.functions import (DeleteFromDataBase,
+from app.controllers.functions import (DeleteFromDataBase, IsString,
 MassiveDeleteFromDataBase, SaveToDataBase, ResponseBadRequest,
 ResponseCreated, ResponseConflict, ResponseMethodNotAllowed,
 ResponseNotFound, ResponseOk)
@@ -22,6 +22,7 @@ def CreateUser():
     insertion_result_list = {}
     data = request.get_json()
     if not data: return ResponseBadRequest()
+    if not IsString(data['name']): return ResponseBadRequest()
 
     #Fazer a inserção da security key. O retorno é um dicionario
     result = InsertSecurityKey(data)
@@ -33,7 +34,9 @@ def CreateUser():
         insertion_result_list["user"] = "exist"
     else:
         sk = SearchSecurityKey(data=data)
-        insertion_result_list["user"] = SaveToDataBase(CreateUserData(data, sk))
+        u = CreateUserData(data, sk)
+        if u == None: return ResponseNotFound()
+        insertion_result_list["user"] = SaveToDataBase(u)
 
     result = UpdatePermission(data)
     insertion_result_list["allowed_lab_id"] = result["state"]
@@ -82,6 +85,7 @@ def UpdateUser():
     #if not 'logged_in' in session: ResponseUnauthorized()
     if request.method != "PUT": return ResponseMethodNotAllowed()
     data = request.get_json()
+    if not IsString(data['name']): return ResponseBadRequest()
 
     #checa se realmente ouve auteração
     if SearchUser(check=data):
@@ -116,8 +120,7 @@ def DeleteUser(ident):
 
 
 def CreateUserData(data, sk):
-    return User(name=data["name"], email=data["email"], internal_id=data["internal_id"],
-                profession=Profession(data["profession"]).name, access_key=sk)
+    return User(name=data["name"], email=data["email"], internal_id=data["internal_id"], profession=Profession(data["profession"]).name, access_key=sk)
 
 
 def SearchUser(check=None, data=None, ident=None):

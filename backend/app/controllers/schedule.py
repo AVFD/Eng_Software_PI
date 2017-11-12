@@ -72,9 +72,9 @@ def UpdateSchedule():
     schedule_update.start = data['start']
     schedule_update.end = data['end']
     schedule_update.purpouse = data['purpouse']
-    schedule_update.day_of_the_week = data['day_of_the_week']
-    print("Valor do data[profession]: {0}\nTipo: {1}".format(data['profession'], type(data['profession'])))
-    schedule_update.profession = data['profession']
+    schedule_update.day_of_the_week = DayOfTheWeek(data['day_of_the_week']).name 
+    schedule_update.laboratory_id = data['laboratory_id']
+    schedule_update.profession = Profession(data['profession']).name
     db.session.commit()
     return ResponseOk()
 
@@ -126,8 +126,8 @@ def ConvertToMinutes(time):
 
 def CreateScheduleData(data, lab):
     return Schedule(start=data['start'], end=data['end'], purpouse=data['purpouse'],
-                    day_of_the_week=data['day_of_the_week'], profession=data['profession'],
-                    lab_agenda=lab)
+                    day_of_the_week=DayOfTheWeek(data['day_of_the_week']).name,
+                    profession=Profession(data['profession']).name, lab_agenda=lab)
 
 
 def SearchSchedule(data_for_one=None, ident=None, data_for_various=None):
@@ -135,10 +135,13 @@ def SearchSchedule(data_for_one=None, ident=None, data_for_various=None):
         return Schedule.query.filter_by(id=ident).first()
 
     elif data_for_one:
-        return Schedule.query.filter_by(start=data_for_one['start'], day_of_the_week=data_for_one['day_of_the_week'], laboratory_id=data_for_one['laboratory_id']).first()
+        return Schedule.query.filter_by(start=data_for_one['start'],
+                                        day_of_the_week=DayOfTheWeek(data_for_one['day_of_the_week']).name,
+                                        laboratory_id=data_for_one['laboratory_id']).first()
 
     elif data_for_various:
-        return Schedule.query.filter_by(laboratory_id=data_for_various['laboratory_id'], day_of_the_week=data_for_various['day_of_the_week']).all()
+        return Schedule.query.filter_by(laboratory_id=data_for_various['laboratory_id'],
+                                        day_of_the_week=DayOfTheWeek(data_for_various['day_of_the_week']).name).all()
 
 
 def SubtractTime(time_a, time_b):

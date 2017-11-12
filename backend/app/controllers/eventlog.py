@@ -82,8 +82,9 @@ def DeleteEventLog(ident):
 
 def CreateEventLogData(data):
     time = datetime.datetime.strptime(data['timestamp'], "%d-%m-%Y %H:%M:%S")
-    return EventLog(timestamp=time, event=data['event'], security_key=data['security_key'],
-                    user_name=data['user_name'], day_of_the_week=data['day_of_the_week'], profession=data['profession'],
+    return EventLog(timestamp=time, event=Event(data['event']).name, security_key=data['security_key'],
+                    user_name=data['user_name'], day_of_the_week=DayOfTheWeek(data['day_of_the_week']).name,
+                    profession=Profession(data['profession']).name,
                     laboratory_name=data['laboratory_name'])
 
 
@@ -96,7 +97,10 @@ def SearchEventLog(data_for_one=None, ident=None, data_for_various=None):
         return Schedule.query.filter_by(id=ident).first()
 
     elif data_for_one:
-        return Schedule.query.filter_by(start=data_for_one['timestamp'], day_of_the_week=data_for_one['day_of_the_week'], laboratory_id=data_for_one['laboratory_name']).first()
+        return Schedule.query.filter_by(start=data_for_one['timestamp'],
+                                        day_of_the_week=DayOfTheWeek(data_for_one['day_of_the_week']).name,
+                                        laboratory_id=data_for_one['laboratory_name']).first()
 
     elif data_for_various:
-        return Schedule.query.filter_by(laboratory_id=data_for_various['laboratory_name'], day_of_the_week=data_for_various['day_of_the_week']).all()
+        return Schedule.query.filter_by(laboratory_id=data_for_various['laboratory_name'],
+                                        day_of_the_week=DayOfTheWeek(data_for_various['day_of_the_week']).name).all()
