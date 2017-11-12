@@ -32,7 +32,7 @@ def ReadLaboratory(ident):
     laboratories = []
     output = []
     if ident:
-        laboratory = Laboratory.query.filter_by(id=ident).first()
+        laboratories.append(Laboratory.query.filter_by(id=ident).first())
     else: 
         laboratories = Laboratory.query.all()
 
