@@ -72,7 +72,7 @@ def ReadUser(ident):
             user_data['internal_id'] = user.internal_id
             user_data['name'] = user.name
             user_data['id'] = user.id
-            user_data['permission'] = allowed_labs
+            user_data['allowed_lab'] = allowed_labs
             user_data["profession"] = user.profession.value
             output.append(user_data)
             user_data = {}
