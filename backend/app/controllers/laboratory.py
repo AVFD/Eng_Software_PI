@@ -4,7 +4,7 @@ from app import app, db
 from app.models.tables import Laboratory, Profession, Permission, SecurityKey, User
 from app.models.forms import LoginForm
 
-from app.controllers.functions import (SaveToDataBase, DeleteFromDataBase,
+from app.controllers.functions import (SaveToDataBase, DeleteFromDataBase, IsString,
 ResponseBadRequest, ResponseCreated, ResponseConflict,
 ResponseMethodNotAllowed, ResponseNotFound, ResponseOk)
 
@@ -16,6 +16,7 @@ def CreateLaboratory():
     #if not 'logged_in' in session: return ResponseUnauthorized()
     if request.method != "POST": return ResponseMethodNotAllowed()
     data = request.get_json()
+    if not IsString(data['name']): return ResponseBadRequest()
     if SearchLaboratory(data=data): return ResponseConflict()
     new_lab = Laboratory(name=data['name'])
     if not new_lab: return ResponseBadRequest()
@@ -54,6 +55,7 @@ def UpdateLaboratory():
     #if not 'logged_in' in session: return ResponseUnauthorized()
     if request.method != "PUT": return ResponseMethodNotAllowed()
     data = request.get_json()
+    if not IsString(data['name']): return ResponseBadRequest()
     laboratory_update = SearchLaboratory(ident=data["id"])
     if not laboratory_update: return ResponseConflict()
     laboratory_exist = SearchLaboratory(name=data["name"])

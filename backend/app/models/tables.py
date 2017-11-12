@@ -31,7 +31,7 @@ class DayOfTheWeek(enum.Enum):
 
 class Event(enum.Enum):
 	entrada = "Entrada"
-	saida = "Saida"
+	saida = "Saída"
 
 
 class Profession(enum.Enum):
@@ -151,7 +151,7 @@ if len(Admin.query.all()) == 0:
 if len(User.query.all()) == 0:
 	data = {"name": "Estudante001", "internal_id": "00000",
 			"email": "estudante001@email.com.br", "profession": "Estudante",
-			"security_key" : "990011223344", "permission" : []}
+			"security_key" : "990011223344", "allowed_lab_id" : []}
 	InsertSecurityKey(data)
 	sk = SearchSecurityKey(data=data)
 	SaveToDataBase(CreateUserData(data, sk))

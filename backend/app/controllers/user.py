@@ -4,7 +4,7 @@ from app import app, db
 from app.models.tables import Laboratory, Profession, Permission, SecurityKey, User
 from app.models.forms import LoginForm
 
-from app.controllers.functions import (DeleteFromDataBase,
+from app.controllers.functions import (DeleteFromDataBase, IsString,
 MassiveDeleteFromDataBase, SaveToDataBase, ResponseBadRequest,
 ResponseCreated, ResponseConflict, ResponseMethodNotAllowed,
 ResponseNotFound, ResponseOk)
@@ -22,6 +22,7 @@ def CreateUser():
     insertion_result_list = {}
     data = request.get_json()
     if not data: return ResponseBadRequest()
+    if not IsString(data['name']): return ResponseBadRequest()
 
     #Fazer a inserção da security key. O retorno é um dicionario
     result = InsertSecurityKey(data)
@@ -33,10 +34,12 @@ def CreateUser():
         insertion_result_list["user"] = "exist"
     else:
         sk = SearchSecurityKey(data=data)
-        insertion_result_list["user"] = SaveToDataBase(CreateUserData(data, sk))
+        u = CreateUserData(data, sk)
+        if u == None: return ResponseNotFound()
+        insertion_result_list["user"] = SaveToDataBase(u)
 
-    result = InsertPermission(data)
-    insertion_result_list["permission"] = result["state"]
+    result = UpdatePermission(data)
+    insertion_result_list["allowed_lab_id"] = result["state"]
     if insertion_result_list["user"] == "success": return ResponseCreated()
     elif insertion_result_list["user"] == "exist": return ResponseConflict()
 
@@ -82,10 +85,11 @@ def UpdateUser():
     #if not 'logged_in' in session: ResponseUnauthorized()
     if request.method != "PUT": return ResponseMethodNotAllowed()
     data = request.get_json()
+    if not IsString(data['name']): return ResponseBadRequest()
 
     #checa se realmente ouve auteração
     if SearchUser(check=data):
-        print("Tá tentando atualizar com o mesmo conteúdo")
+        #print("Tá tentando atualizar com o mesmo conteúdo")
         return ResponseConflict()
 
     user_update = SearchUser(ident=data["id"])
@@ -116,8 +120,7 @@ def DeleteUser(ident):
 
 
 def CreateUserData(data, sk):
-    return User(name=data["name"], email=data["email"], internal_id=data["internal_id"],
-                profession=Profession(data["profession"]).name, access_key=sk)
+    return User(name=data["name"], email=data["email"], internal_id=data["internal_id"], profession=Profession(data["profession"]).name, access_key=sk)
 
 
 def SearchUser(check=None, data=None, ident=None):
@@ -138,17 +141,12 @@ def SearchUser(check=None, data=None, ident=None):
     elif check:
         check_user = User.query.filter_by(id=check['id'], name=check['name'], email=check['email'], internal_id=check['internal_id'], profession=Profession(check['profession']).name).first()
         if not check_user:
-            print("Atualização com dados distintos")
+            #print("Atualização com dados distintos")
             return None
         check_user_permissions = SearchPermission(user_data=check_user)
-        print("allowed laboratories id")
-        print(check['allowed_laboratories_id'])
         for permission in check_user_permissions:
-            print("permission_id")
-            print(type(permission.laboratory_id))
-            result = permission.laboratory_id in check['allowed_laboratories_id']
-            print("Resultado: {}".format(result))
+            result = permission.laboratory_id in check['allowed_lab_id']
             if result == False:
-                print("Só está atualizando a permissão")
+                #print("Só está atualizando a permissão")
                 return None
         return check_user

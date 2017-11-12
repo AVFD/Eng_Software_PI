@@ -4,15 +4,23 @@ from app import db
 #################################################################
 ############### FUNCOES - Ordem Alfabetica ######################
 #################################################################
-def MassiveDeleteFromDataBase(datas):
-    if len(datas) == 0: return "empty"
-    [DeleteFromDataBase(data) for data in datas]
-    return "success"
-
-
 def DeleteFromDataBase(data):
     db.session.delete(data)
     db.session.commit()
+    return "success"
+
+
+def IsInteger(data):
+    return True if type(data) == int else False
+
+
+def IsString(data):
+    return True if type(data) == str else False
+
+
+def MassiveDeleteFromDataBase(datas):
+    if len(datas) == 0: return "empty"
+    [DeleteFromDataBase(data) for data in datas]
     return "success"
     
 
