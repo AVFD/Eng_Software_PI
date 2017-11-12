@@ -29,18 +29,15 @@ def CreateLaboratory():
 def ReadLaboratory(ident):
     #if not 'logged_in' in session: return ResponseUnauthorized()
     if request.method != "GET": return ResponseMethodNotAllowed()
+    laboratories = []
     output = []
     if ident:
         laboratory = Laboratory.query.filter_by(id=ident).first()
-        if laboratory:
-            laboratory_data = {}
-            laboratory_data['id'] = laboratory.id
-            laboratory_data['name'] = laboratory.name
-            output.append(laboratory_data)
-            return jsonify({"laboratory": laboratory_data})
-        else: return ResponseNotFound()
+    else: 
+        laboratories = Laboratory.query.all()
 
-    laboratories = Laboratory.query.all()
+    if laboratories[0] == None: return ResponseBadRequest()
+
     for laboratory in laboratories:
         laboratory_data = {}
         laboratory_data['id'] = laboratory.id
