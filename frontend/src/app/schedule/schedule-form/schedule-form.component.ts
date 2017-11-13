@@ -10,12 +10,16 @@ import { IMultiSelectTexts, IMultiSelectOption, IMultiSelectSettings } from 'ang
   styleUrls: ['./schedule-form.component.css']
 })
 export class ScheduleFormComponent implements OnInit {
+  //selecionar ComboBox
   profissaoSelecionada:string;
+  diaSelecinado:string;
+  salaSelectionada:number;
+  //valor ComboBox
   profissoes = ['Zelador(a)', 'Professor(a)', 'Estudante', 'Funcionário(a)'];
   dSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
-  schedule:any;
-  diaSelecinado:string;
   salas:string;
+  //valor para passar no json
+  schedule:any;
   constructor(
     private route:Router,
     private dbService:DbService
@@ -26,11 +30,19 @@ export class ScheduleFormComponent implements OnInit {
       this.schedule = {
         'start': form.value.inicio,
         'end': form.value.termino,
-        'purpouse': form.value.porpose,
+        'purpouse': form.value.purpouse,
         'day_of_the_week': this.diaSelecinado,
         'profession': this.profissaoSelecionada,
-        'laboratory_id': 2
+        'laboratory_id': this.salaSelectionada
       }
+      console.log(this.schedule)
+      this.dbService.adicionarSchedule(this.schedule)
+      .toPromise()
+      .then(()=>{
+        alert('Schedule cadastrada com sucesso!');
+        this.route.navigate(['/schedule'])
+      })
+      .catch(er => alert('Erro: '+er.status+' ao adicionar Schedule'));
     }
   }
   ngOnInit() {
@@ -52,6 +64,6 @@ export class ScheduleFormComponent implements OnInit {
     this.diaSelecinado = dia;
   }
   salaSelected(sala){
-    console.log(sala)
+    this.salaSelectionada = sala;
   }
 }

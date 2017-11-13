@@ -19,6 +19,10 @@ export class DbService {
   private criarUserURL:string = ip+"/user/create";
   private deletarUserURL:string = ip+"/user/delete";
   private updateUserURL:string = ip+"/user/update";
+  
+  private criarScheduleURL:string = ip+"/schedule/create";
+  private listarScheduleURL:string = ip+"/schedule/read";
+  private deletarScheURL:string = ip+"/schedule/delete";
 
   constructor(private http:Http) { }
 
@@ -70,7 +74,21 @@ export class DbService {
     return this.http.delete(this.deletarUserURL+"/"+id);
   }
   updateUser(user){
-    console.log(user)
     return this.http.put(this.updateUserURL,user);
+  }
+  //Filtro User por profissao
+  getFilterUser(opcao){
+    return this.http.get(this.listarUsersURL+"?profession="+opcao)
+  }
+
+  //Schedule
+  adicionarSchedule(schedule){
+    return this.http.post(this.criarScheduleURL, schedule);
+  }
+  getSchedule(dia, sala_id){
+    return this.http.get(this.listarScheduleURL+"?day_of_the_week="+dia+"&laboratory_id="+sala_id);
+  }
+  removerSche(id){
+    return this.http.delete(this.deletarScheURL+"/"+id);
   }
 }

@@ -1,56 +1,64 @@
 <app-navbar></app-navbar>
 <br>
-
-<div class="container">
-  <a style="float:right;" routerLink="/usr/create" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
-    <img src="../assets/add_icon.png" width="50" />
-  </a>
-  <br>
-  <br>
-  <br>
-  <table class="table table-hover ">
-    <thead>
-      <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Email</th>
-        <th scope="col">Registro Interno</th>
-        <th scope="col">Profissão</th>
-        <th scope="col">Permissões</th>
-        <th scope="col">Gerenciar</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let usr of usrJsonBackEnd; let idx = index">
-        <td>{{ usr.name }}</td>
-        <td>{{ usr.email }}</td>
-        <td>{{ usr.internal_id }}</td>
-        <td>{{ usr.profession }}</td>
-        <td>
-          <div class="btn-group" dropdown>
-            <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-              Salas Permitidas
-              <span class="caret"></span>
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+  <div class="container">
+      <label><b>Filtrar por: </b> </label>
+      <select (click)="filterSelected($event.target.value)" class="btn">
+          <option disabled>Selecione o filtro </option>
+          <option *ngFor="let prof of profissoes">{{ prof }}</option>
+      </select>
+      <button type="submit" style="margin-left: 20px" class="btn btn-success">Filtrar</button>
+    <a style="float:right;" routerLink="/usr/create" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
+      <img src="../assets/add_icon.png" width="50" />
+    </a>
+    <br>
+    <br>
+    <br>
+    <table class="table table-hover ">
+      <thead>
+        <tr>
+          <th scope="col">Nome</th>
+          <th scope="col">Email</th>
+          <th scope="col">Registro Interno</th>
+          <th scope="col">Profissão</th>
+          <th scope="col">Permissões</th>
+          <th scope="col">Gerenciar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usr of usrJsonBackEnd; let idx = index">
+          <td>{{ usr.name }}</td>
+          <td>{{ usr.email }}</td>
+          <td *ngIf="usr.internal_id > 0" >{{ usr.internal_id }}</td>
+          <td *ngIf="usr.internal_id == 0" >Não possui</td>
+          <td>{{ usr.profession }}</td>
+          <td>
+            <div class="btn-group" dropdown>
+              <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+                Salas Permitidas
+                <span class="caret"></span>
+              </button>
+              <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li *ngFor="let permissao of usr.allowed_lab" role="menuitem">
+                  <a class="dropdown-item" >{{ permissao.laboratory_name }}</a>
+                </li>
+              </ul>
+            </div>
+          </td>
+          <td>
+            <button (click)="editar(usr.id)"class="btn btn-primary">
+              <a>
+                <img src="../assets/edicao_icon.png" width="20" />
+              </a>
             </button>
-            <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li *ngFor="let permissao of usr.allowed_lab" role="menuitem">
-                <a class="dropdown-item" >{{ permissao.laboratory_name }}</a>
-              </li>
-            </ul>
-          </div>
-        </td>
-        <td>
-          <button (click)="editar(usr.id)"class="btn btn-primary">
-            <a>
-              <img src="../assets/edicao_icon.png" width="20" />
-            </a>
-          </button>
-          <button (click)="removeUser(idx)" class="btn btn-danger">
-            <a>
-              <img src="../assets/remove_icon.png" width="20" />
-            </a>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+            <button (click)="removeUser(idx)" class="btn btn-danger">
+              <a>
+                <img src="../assets/remove_icon.png" width="20" />
+              </a>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</form>

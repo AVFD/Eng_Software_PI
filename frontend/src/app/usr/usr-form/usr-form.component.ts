@@ -52,7 +52,6 @@ export class UsrFormComponent implements OnInit {
         'allowed_lab_id':this.optionsModel,
         'profession':this.profissao
       }
-      console.log(this.user)
       this.dbService.adicionarUser(this.user).toPromise()
       .then(res => {
         alert('Usuário cadastrado com sucesso!')

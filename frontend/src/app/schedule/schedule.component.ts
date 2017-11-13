@@ -8,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./schedule.component.css']
 })
 export class ScheduleComponent implements OnInit {
+  //itens comboBox selecionados
   salaSelecionada:string;
   diaSelecionado:string;
+
+  //itens do comboBox
   salas:any = [];
   dSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
+
+  schedules:any = [];
   constructor(
     private route:Router,
     private dbService:DbService
@@ -26,14 +31,29 @@ export class ScheduleComponent implements OnInit {
     })
   }
   onSubmit(form){
-    
+    this.dbService.getSchedule(this.diaSelecionado, this.salaSelecionada)
+    .map(res => res.json())
+    .toPromise()
+    .then(data => this.schedules = data.schedules)
+    .catch(er =>{
+      if(er.status === 404){
+        alert('A sala não possui nenhum horário agendado nesse dia!');
+      }
+      else if(er.status === 0){
+        alert('Selecione uma sala e um dia!');  
+      }
+    });
   }
   salaSelected(sala){
     this.salaSelecionada = sala;
-    console.log(this.salaSelecionada)  
   }
   diaSelected(dia){
     this.diaSelecionado = dia;
-    console.log(this.diaSelecionado)
+  }
+  deletarSche(id){
+    if(confirm('Tem certeza que você deseja excluir?')){
+      this.dbService.removerSche(this.schedules[id].id).subscribe();
+      this.schedules.splice(id, 1);
+    }
   }
 }

@@ -7,14 +7,14 @@
                 <label>Sala: </label>
                 <select (click)="salaSelected($event.target.value)" class="btn">
                     <option disabled>Selecione a sala: </option>
-                    <option *ngFor="let sala of salas">{{ sala.name }}</option>
+                    <option value="{{sala.id}}"*ngFor="let sala of salas">{{ sala.name }}</option>
                 </select>
                 <label style="margin-left: 50px">Dia da Semana: </label>
                 <select (click)="diaSelected($event.target.value)" class="btn">
                     <option disabled>Selecione o dia: </option>
                     <option *ngFor="let dias of dSemana">{{ dias }}-feira</option>
                 </select>
-                <button (click)="consultar" type="submit" style="margin-left: 50px" class="btn btn-success">Consultar</button>
+                <button type="submit" style="margin-left: 50px" class="btn btn-success">Consultar</button>
                 <a style="float:right;" routerLink="/schedule/create" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
                     <img src="../assets/addSchedule_icon.png" width="30" />
                 </a>
@@ -31,16 +31,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let adm of adminsJsonBackEnd; let idx = index">
-                    <td>{{ adm.name }}</td>
-                    <td>{{ adm.email }}</td>
+                <tr *ngFor="let sche of schedules; let idx = index">
+                    <td>{{ sche.start }}</td>
+                    <td>{{ sche.end }}</td>
+                    <td>{{ sche.purpouse }}</td>
+                    <td>{{ sche.profession }}</td>
                     <td>
-                        <button (click)="editar(adm.id)" class="btn btn-primary">
+                        <button (click)="editar(sche.id)" class="btn btn-primary">
                             <a>
                                 <img src="../assets/editSchedule_icon.png" width="20" />
                             </a>
                         </button>
-                        <button (click)="deletarAdm(idx)" class="btn btn-danger">
+                        <button (click)="deletarSche(idx)" class="btn btn-danger">
                             <a>
                                 <img src="../assets/remove_icon.png" width="20" />
                             </a>
