@@ -45,10 +45,10 @@ def ReadSchedule(ident):
         schedules.append(Schedule.query.filter_by(id=ident).first())
     
     elif arg_week and arg_laboratory:
-        schedules = Schedule.query.filter_by(day_of_the_week=arg_week, laboratory_id=arg_laboratory).all()
+        schedules = Schedule.query.filter_by(day_of_the_week=DayOfTheWeek(arg_week).name, laboratory_id=arg_laboratory).all()
     
     elif arg_week:
-        schedules = Schedule.query.filter_by(day_of_the_week=arg_week).all()
+        schedules = Schedule.query.filter_by(day_of_the_week=DayOfTheWeek(arg_week).name).all()
 
     elif arg_laboratory:
         schedules = Schedule.query.filter_by(laboratory_id=arg_laboratory).all()
