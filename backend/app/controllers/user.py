@@ -89,7 +89,7 @@ def UpdateUser():
 
     #checa se realmente ouve auteração
     if SearchUser(check=data):
-        #print("Tá tentando atualizar com o mesmo conteúdo")
+        print("Tá tentando atualizar com o mesmo conteúdo")
         return ResponseConflict()
 
     user_update = SearchUser(ident=data["id"])
@@ -141,12 +141,16 @@ def SearchUser(check=None, data=None, ident=None):
     elif check:
         check_user = User.query.filter_by(id=check['id'], name=check['name'], email=check['email'], internal_id=check['internal_id'], profession=Profession(check['profession']).name).first()
         if not check_user:
-            #print("Atualização com dados distintos")
+            print("Atualização com dados distintos")
             return None
+
         check_user_permissions = SearchPermission(user_data=check_user)
+        if len(check_user_permissions) != len(check['allowed_lab_id']):
+            print("Só está atualizando a permissão")
+            return None
+
         for permission in check_user_permissions:
             result = permission.laboratory_id in check['allowed_lab_id']
             if result == False:
-                #print("Só está atualizando a permissão")
                 return None
         return check_user
