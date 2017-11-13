@@ -54,8 +54,6 @@ def ReadUser(ident):
         users = []
         user_data = {}
         arg_profession = request.args.get('profession')
-        print("VALOR DE ARG_PROFESSION")
-        print(arg_profession)
         if ident:
             users.append(User.query.filter_by(id=ident).first())
         

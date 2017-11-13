@@ -32,32 +32,33 @@ def CreateSchedule():
 
 
 @app.route("/schedule/read/<int:ident>", methods=["GET"])
-@app.route("/schedule/read", defaults={"ident": None, "dayoftheweek": None, "laboratory": None}, methods=["GET"])
+@app.route("/schedule/read", defaults={"ident": None}, methods=["GET"])
 def ReadSchedule(ident):
     #if not 'logged_in' in session: return ResponseUnauthorized()
     if request.method != "GET": return ResponseMethodNotAllowed()
     output = []
     schedules = []
-    arg_week = request.args.get('dayoftheweek')
-    arg_laboratory = request.args.get('laboratory')
+    arg_week = request.args.get('day_of_the_week')
+    arg_laboratory = request.args.get('laboratory_id')
 
     if ident:
         schedules.append(Schedule.query.filter_by(id=ident).first())
     
     elif arg_week and arg_laboratory:
-        schedules.append(Schedule.query.filter_by(day_of_the_week=arg_week, laboratory=arg_laboratory))
+        schedules = Schedule.query.filter_by(day_of_the_week=arg_week, laboratory_id=arg_laboratory).all()
     
     elif arg_week:
-        schedules.append(Schedule.query.filter_by(day_of_the_week=arg_week))
+        schedules = Schedule.query.filter_by(day_of_the_week=arg_week).all()
 
     elif arg_laboratory:
-        schedules.append(Schedule.query.filter_by(laboratory=arg_laboratory))
+        schedules = Schedule.query.filter_by(laboratory_id=arg_laboratory).all()
 
     else:
         schedules = Schedule.query.all()
     
-    if schedules[0] == None: return ResponseNotFound()
+    if len(schedules) == 0 or schedules[0] == None: return ResponseNotFound()
 
+    print(schedules)
     for schedule in schedules:
         schedule_data = {}
         schedule_data['id'] = schedule.id
