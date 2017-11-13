@@ -26,8 +26,10 @@ export class AdmComponent implements OnInit {
   }
   
   deletarAdm(id){
-    this.dbService.removerAdm(this.adminsJsonBackEnd[id].id).subscribe();
-    this.adminsJsonBackEnd.splice(id, 1);
+    if(confirm('Tem certeza que você deseja excluir?')){
+      this.dbService.removerAdm(this.adminsJsonBackEnd[id].id).subscribe();
+      this.adminsJsonBackEnd.splice(id, 1);
+    }
   }
   editar(id){
     this.router.navigate(['adm', id]);

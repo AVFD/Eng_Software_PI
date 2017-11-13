@@ -27,8 +27,10 @@ export class UsrComponent implements OnInit {
     .catch(er => alert('Erro: '+er.status+' ao listar Usuários!'));
   }
   removeUser(id){
-    this.dbService.removerUser(this.usrJsonBackEnd[id].id).subscribe();
-    this.usrJsonBackEnd.splice(id, 1);
+    if(confirm('Tem certeza que você deseja excluir?')){
+      this.dbService.removerUser(this.usrJsonBackEnd[id].id).subscribe();
+      this.usrJsonBackEnd.splice(id, 1);
+    }
   }
   editar(id){
     this.router.navigate(['usr', id]);

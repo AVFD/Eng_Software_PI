@@ -21,14 +21,16 @@ export class SalasComponent implements OnInit {
     .map(res=> res.json())
     .toPromise()
     .then((data)=>{
-      this.salasJsonBackEnd = data
+      this.salasJsonBackEnd = data.laboratories
     })
     .catch(er => alert('Erro: '+er.status+' ao listar Salas!'));
   }
   removeSala(id){
-    this.dbService.removerSala(id).subscribe();
-    this.ngOnInit();
-    this.ngOnInit();
+    if(confirm('Tem certeza que você deseja excluir?')){
+      console.log(this.salasJsonBackEnd)
+      this.dbService.removerSala(this.salasJsonBackEnd[id].id).subscribe();
+      this.salasJsonBackEnd.splice(id, 1);
+    }
   }
   editarSala(id){
     this.router.navigate(['salas', id]);
