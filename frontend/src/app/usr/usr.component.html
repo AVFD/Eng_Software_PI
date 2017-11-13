@@ -20,7 +20,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let usr of usrJsonBackEnd">
+      <tr *ngFor="let usr of usrJsonBackEnd; let idx = index">
         <td>{{ usr.name }}</td>
         <td>{{ usr.email }}</td>
         <td>{{ usr.internal_id }}</td>
@@ -32,7 +32,7 @@
               <span class="caret"></span>
             </button>
             <ul *dropdownMenu class="dropdown-menu" role="menu">
-              <li *ngFor="let permissao of usr.permission" role="menuitem">
+              <li *ngFor="let permissao of usr.allowed_lab" role="menuitem">
                 <a class="dropdown-item" >{{ permissao.laboratory_name }}</a>
               </li>
             </ul>
@@ -44,7 +44,7 @@
               <img src="../assets/edicao_icon.png" width="20" />
             </a>
           </button>
-          <button (click)="removeUser(usr.id)" class="btn btn-danger">
+          <button (click)="removeUser(idx)" class="btn btn-danger">
             <a>
               <img src="../assets/remove_icon.png" width="20" />
             </a>

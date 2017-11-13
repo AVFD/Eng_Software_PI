@@ -23,7 +23,7 @@ export class AuthService {
         return false;
       })
       .catch((error) => {
-        this.usuarioAutenticado = false;
+        this.errorMensage(error.status)
         return false;
       });
     return this.usuarioAutenticado;
@@ -33,5 +33,8 @@ export class AuthService {
   }
   setUsuarioEstaAutenticado(bool){
     this.usuarioAutenticado = bool;
+  }
+  errorMensage(error){
+    alert('Erro: '+error+' ao logar!')
   }
 }

@@ -5,29 +5,29 @@
     <form #form="ngForm" (ngSubmit)="onSubmit(form)">
         <div class="form-group">
             <label for="inputName">Nome</label>
-            <input (ngModel)="control.name" #name="ngModel" name="name" type="text" class="form-control" id="inputname" placeholder="Diga-nos seu nome"
-                required>
+            <input #name="ngModel" name="name" [(ngModel)]="admin.name" type="text" 
+            class="form-control" placeholder="Diga-nos seu nome" required>
         </div>
         <div class="form-group">
             <label for="inputEmail">Email</label>
-            <input #email="ngModel" (ngModel)="control.email" name="email" type="email" class="form-control" id="email" placeholder="Email"
-                required>
+            <input #email="ngModel" name="email" [(ngModel)]="admin.email" type="email" class="form-control"
+            placeholder="Email" required email>
+            <p class="erroMsg" *ngIf="form.submitted && !email.valid" >*Campo email inválido!</p>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label for="inputUsuario">Usuário</label>
-                <input name="login_name" type="text" class="form-control" id="usuario" placeholder="UserName" #login="ngModel" (ngModel)="control.login"
-                    required>
-                <small id="usuarioHelp" class="form-text text-muted">
+                <input type="text" class="form-control" placeholder="UserName" 
+                #login="ngModel" name="login_name" [(ngModel)]="admin.login_name" required>
+                <small class="form-text text-muted">
                     Escolha um usuário com cuidado, pois ele fará parte de suas credenciais para acessar o sistema!
                 </small>
-
             </div>
             <div class="form-group col-md-6">
-                <label for="inputPassword4">Password</label>
-                <input #password="ngModel" (ngModel)="control.password" name="password" type="password" class="form-control" id="inputPassword4"
-                    placeholder="Password" required>
-                <small id="usuarioHelp" class="form-text text-muted">
+                <label >Password</label>
+                <input #password="ngModel" [(ngModel)]="admin.password" type="password" 
+                class="form-control" name="password" placeholder="Password" required>
+                <small class="form-text text-muted">
                     Nunca compartilhe sua senha com ninguém!
                 </small>
             </div>

@@ -20,14 +20,15 @@ export class UsrComponent implements OnInit {
     this.dbService
     .getUsers()
     .map(res => res.json())
-    .subscribe(data => {
+    .toPromise()
+    .then(data => {
       this.usrJsonBackEnd = data.users
-    });
+    })
+    .catch(er => alert('Erro: '+er.status+' ao listar Usuários!'));
   }
   removeUser(id){
-    this.dbService.removerUser(id).subscribe();
-    this.ngOnInit();
-    this.ngOnInit();
+    this.dbService.removerUser(this.usrJsonBackEnd[id].id).subscribe();
+    this.usrJsonBackEnd.splice(id, 1);
   }
   editar(id){
     this.router.navigate(['usr', id]);

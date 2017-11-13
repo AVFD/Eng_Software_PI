@@ -8,6 +8,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
 import { SalasModule } from './salas/salas.module';
+import { ScheduleModule } from './schedule/schedule.module';
 import { UsrModule } from './usr/usr.module';
 import { PaginaoencotradaModule } from './paginaoencontrada/paginaoencotrada.module';
 import { NavbarModule } from './navbar/navbar.module';
@@ -24,7 +25,7 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +41,7 @@ import { AppComponent } from './app.component';
     SalasModule,
     NavbarModule,
     PaginaoencotradaModule,
+    ScheduleModule,
     routing
   ],
   providers: [AuthGuard, AuthService, DbService],

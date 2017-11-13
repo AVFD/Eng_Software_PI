@@ -10,11 +10,9 @@ import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts} from 'angu
 })
 export class UsrFormComponent implements OnInit {
   optionsModel = [];
-  control:any = {};
-  profissoes = ['funcionario', 'estudante', 'zelador', 'professor'];
-  user = {}
   profissao:string;
-  salas = []
+  profissoes = ['Zelador(a)', 'Professor(a)', 'Estudante', 'Funcionário(a)'];
+  user:any = {};
   constructor(
     private dbService:DbService,
     private router:Router
@@ -26,7 +24,7 @@ export class UsrFormComponent implements OnInit {
     showUncheckAll: true,
     isLazyLoad: true,
     checkedStyle: 'fontawesome',
-    buttonClasses: 'btn btn-default btn-block',
+    buttonClasses: 'btn btn-primary btn-block',
     dynamicTitleMaxItems: 10,
     displayAllSelectedText: true
   };
@@ -37,7 +35,7 @@ export class UsrFormComponent implements OnInit {
     uncheckAll: 'Desmarcar todos',
     checked: 'Item marcado!',
     checkedPlural: 'Itens marcados!',
-    defaultTitle: 'Selecione os números',
+    defaultTitle: 'Selecione as salas',
     allSelected: 'Todos selecionados!',
   };
 
@@ -46,24 +44,22 @@ export class UsrFormComponent implements OnInit {
   
   onSubmit(form){
     if(form.valid){
-      for(let j = 0; j < this.optionsModel.length; j++){
-        this.salas.push(this.myOptions[j].name);
-      }
       this.user = {
-        'email': form.value.email,
-        'internal_id': form.value.ri,
-        "security_key": form.value.rfid,
-        "name": form.value.name,
-        "profession": this.profissao,
-        "permission": this.salas
-      };
+        'name':form.value.name,
+        'email':form.value.email,
+        'internal_id':form.value.ri,
+        'security_key':form.value.rfid,
+        'allowed_lab_id':this.optionsModel,
+        'profession':this.profissao
+      }
+      console.log(this.user)
       this.dbService.adicionarUser(this.user).toPromise()
       .then(res => {
         alert('Usuário cadastrado com sucesso!')
         this.router.navigate(['/usr'])
       })
       .catch(er =>{
-        alert('Erro ao adicionar usuário!');
+        alert('Erro '+er.status+' ao adicionar usuário!');
         // if(er.status === 409){
         //   alert('Usuário ou email ja cadastrados!')
         // }else if(er.status === 0){
@@ -73,7 +69,9 @@ export class UsrFormComponent implements OnInit {
     }
   }
   ngOnInit() {
-    this.dbService.getSalas().map(res=>res.json()).toPromise()
+    this.dbService.getSalas()
+    .map(res=>res.json())
+    .toPromise()
     .then(data => {
       this.myOptions = data.laboratories
     })
@@ -83,6 +81,6 @@ export class UsrFormComponent implements OnInit {
     this.router.navigate(['usr']);
   }
   profissaoSelected(profissao){
-    this.profissao = profissao
+    this.profissao = profissao;
   }
 }

@@ -12,7 +12,6 @@ import { AuthService } from './auth.service';
 export class LoginComponent implements OnInit {
   private usuarioJson = {};
   private errormensage: boolean = false;
-  private control = {}
 
   constructor(
     private authService: AuthService,
@@ -28,18 +27,10 @@ export class LoginComponent implements OnInit {
         'username': form.value.username,
         'password': form.value.password
       };
-      this.errormensage = !(await this.authService.fazerLogin(this.usuarioJson));
-      if (this.errormensage) {
-        setTimeout(() => {
-          this.errormensage = false;
-        }, 2000);
-
-      } else {
+      await this.authService.fazerLogin(this.usuarioJson);
+      if(this.authService.usuarioEstaAutenticado){
         this.route.navigate(['/home']);
       }
-
     }
-    
-
   }
 }

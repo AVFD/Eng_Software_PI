@@ -5,19 +5,16 @@
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <div class="form-group">
       <label for="inputName">Nome</label>
-      <input (ngModel)="control.name" #name="ngModel" name="name" type="text" class="form-control" id="inputname" placeholder="Laboratório"
+      <input (ngModel)="control.name" #name="ngModel" name="name" type="text" class="form-control"  placeholder="Laboratório"
         required>
-      <small id="usuarioHelp" class="form-text text-muted">
+      <small class="form-text text-muted">
         Informe o nome do laboratório.
       </small>
+      <p *ngIf="form.submitted && !name.valid" class="errorMsg">*O campo nome é obrigatório!</p>
     </div>
     <div align="center">
       <button (click)="cancel()" type="button" class="btn btn-danger">Cancelar</button>
       <button type="submit" class="btn btn-success">Criar</button>
-    </div>
-    <br>
-    <div class="alert alert-danger" *ngIf="form.submitted && !name.valid">
-      <p align="center">O campo nome é obrigatório!</p>
     </div>
   </form>
 </div>

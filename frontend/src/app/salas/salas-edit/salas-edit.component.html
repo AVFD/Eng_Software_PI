@@ -6,8 +6,8 @@
   <form #form="ngForm" (ngSubmit)="onSubmit(form)">
     <div class="form-group">
       <label for="inputName">Nome</label>
-      <input [ngModel]="sala.name" name="name"
-      type="text" class="form-control" id="inputname" placeholder="Laboratório">
+      <input [(ngModel)]="sala.name" name="name"
+      type="text" class="form-control" placeholder="Laboratório">
     </div>
     <div align="center">
       <button (click)="cancel()" type="button" class="btn btn-danger">Cancelar</button>

@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 import { DbService } from './../../db.service';
@@ -8,11 +8,14 @@ import { DbService } from './../../db.service';
   styleUrls: ['./salas-edit.component.css']
 })
 export class SalasEditComponent implements OnInit {
-  sala:any = {}
+  sala:any = {
+    'name':''
+  }
   id:number;
   constructor(
     private routeActive:ActivatedRoute,
-    private dbService:DbService
+    private dbService:DbService,
+    private route:Router
   ) { }
 
   ngOnInit() {
@@ -21,9 +24,24 @@ export class SalasEditComponent implements OnInit {
     .map(res=>res.json())
     .toPromise()
     .then(data => {
-      this.sala = data.laboratory
+      this.sala = data.laboratories[0]
     })
     .catch(er => alert('Erro: '+er.status+' ao listar as salas'))
   }
-
+  onSubmit(form){
+    if(form.valid){
+      this.dbService.updateSala(this.sala)
+      .toPromise()
+      .then(res=> {
+        alert('Sala editada com sucesso!')
+        this.route.navigate(['/salas'])
+      })
+      .catch(er => {
+        alert('Erro: '+er.status+' ao editar sala')
+      });
+    }
+  }
+  cancel(){
+    this.route.navigate(['/salas'])
+  }
 }

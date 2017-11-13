@@ -1,3 +1,5 @@
+import { ScheduleFormComponent } from './schedule/schedule-form/schedule-form.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 import { SalasEditComponent } from './salas/salas-edit/salas-edit.component';
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from "@angular/router";
@@ -22,9 +24,11 @@ const APP_ROUTES: Routes = [
     { path: 'usr', component: UsrComponent, canActivate:[AuthGuard]},
     { path: 'salas', component: SalasComponent, canActivate:[AuthGuard]},
     { path: 'adm', component: AdmComponent, canActivate:[AuthGuard]},
+    { path: 'schedule', component: ScheduleComponent, canActivate:[AuthGuard]},
     { path: 'salas/create', component: SalasFormComponent, canActivate:[AuthGuard]},
     { path: 'adm/create', component: AdmFormComponent, canActivate:[AuthGuard]},
     { path: 'usr/create', component: UsrFormComponent, canActivate:[AuthGuard]},
+    { path: 'schedule/create', component: ScheduleFormComponent, canActivate:[AuthGuard]},
     { path: 'salas/:id', component: SalasEditComponent, canActivate:[AuthGuard]},
     { path: 'usr/:id', component: UsrEditComponent, canActivate:[AuthGuard]},
     { path: 'adm/:id', component: AdmEditComponent, canActivate:[AuthGuard]},

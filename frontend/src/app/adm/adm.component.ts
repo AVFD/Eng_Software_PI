@@ -19,14 +19,15 @@ export class AdmComponent implements OnInit {
     this.dbService
     .getAdministradores() 
     .map(res=> res.json())
-    .subscribe((data)=>{
-      this.adminsJsonBackEnd = data
-    });
+    .toPromise()
+    .then((data)=>{
+      this.adminsJsonBackEnd = data.admins
+    })      
   }
+  
   deletarAdm(id){
-    this.dbService.removeAdm(id).subscribe();
-    this.ngOnInit();
-    this.ngOnInit();
+    this.dbService.removerAdm(this.adminsJsonBackEnd[id].id).subscribe();
+    this.adminsJsonBackEnd.splice(id, 1);
   }
   editar(id){
     this.router.navigate(['adm', id]);

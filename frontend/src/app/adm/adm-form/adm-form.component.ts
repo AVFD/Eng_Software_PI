@@ -8,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./adm-form.component.css']
 })
 export class AdmFormComponent implements OnInit {
-  private admin:any;
-  private user:any;
+  private admin:any ={
+    'name':'',
+    'email':'',
+    'login_name':'',
+    'password':''
+  }
   constructor(
     private router:Router,
     private dbService:DbService
@@ -19,14 +23,9 @@ export class AdmFormComponent implements OnInit {
   }
   onSubmit(form){
     if(form.valid){
-      this.admin = {
-        'name': form.value.name,
-        'login_name': form.value.login_name,
-        'password': form.value.password,
-        'email': form.value.email
-      };
-
-      this.dbService.adicionarAdm(this.admin).toPromise()
+      console.log(this.admin)
+      this.dbService.adicionarAdm(this.admin)
+      .toPromise()
       .then(response => {
         alert('Cadastro concluido com sucesso.');
         this.router.navigate(['/adm']);

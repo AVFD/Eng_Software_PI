@@ -19,9 +19,11 @@ export class SalasComponent implements OnInit {
     this.dbService
     .getSalas() 
     .map(res=> res.json())
-    .subscribe((data)=>{
+    .toPromise()
+    .then((data)=>{
       this.salasJsonBackEnd = data
-    });
+    })
+    .catch(er => alert('Erro: '+er.status+' ao listar Salas!'));
   }
   removeSala(id){
     this.dbService.removerSala(id).subscribe();

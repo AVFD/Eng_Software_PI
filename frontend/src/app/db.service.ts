@@ -5,25 +5,29 @@ import { Injectable } from '@angular/core';
 const ip = "http://127.0.0.1:5000";
 @Injectable()
 export class DbService {
+  private listarSalaURL:string = ip+"/laboratory/read";
   private criarSalaURL:string = ip+"/laboratory/create";
-  private listaSalaURL:string = ip+"/laboratory/read";
   private deletarSalaURL:string = ip+"/laboratory/delete";
   private updateSalaURL:string = ip+"/laboratory/update";
 
-  private criaradmURL:string = ip+"/admin/create";
-  private listaradmURL:string = ip+"/admin/read";
-  private deletaradmURL:string = ip+"/admin/delete";
-  private updateadmURL:string = ip+"/admin/update";
+  private listarAdmURL:string = ip+"/admin/read";
+  private criarAdmURL:string = ip+"/admin/create";
+  private deletarAdmURL:string = ip+"/admin/delete";
+  private updateAdmURL:string = ip+"/admin/update";
 
-  private criarUserURL:string = ip+"/user/create";
   private listarUsersURL:string = ip+"/user/read";
-  private deletarUsersURL:string = ip+"/user/delete";
+  private criarUserURL:string = ip+"/user/create";
+  private deletarUserURL:string = ip+"/user/delete";
+  private updateUserURL:string = ip+"/user/update";
 
   constructor(private http:Http) { }
 
   //salas
   getSalas(){
-    return this.http.get(this.listaSalaURL);
+    return this.http.get(this.listarSalaURL);
+  }
+  getSala(id){
+    return this.http.get(this.listarSalaURL+"/"+id);
   }
   adicionarSala(salaJson){
     return this.http.post(this.criarSalaURL, salaJson);
@@ -31,41 +35,42 @@ export class DbService {
   removerSala(id){
     return this.http.delete(this.deletarSalaURL+"/"+id);
   }
-  getSala(id){
-    return this.http.get(this.listaSalaURL+"/"+id);
-  }
   updateSala(salaJson){
     return this.http.put(this.updateSalaURL,salaJson);
   }
 
   //adm
   getAdministradores(){
-    return this.http.get(this.listaradmURL);
-  }
-  adicionarAdm(admin){
-    return this.http.post(this.criaradmURL, admin);
-  }
-  removeAdm(id){
-    return this.http.delete(this.deletaradmURL+"/"+id);
+    return this.http.get(this.listarAdmURL);
   }
   getAdministrador(id){
-    return this.http.get(this.listaradmURL+"/"+id);
+    return this.http.get(this.listarAdmURL+"/"+id);
+  }
+  adicionarAdm(admin){
+    return this.http.post(this.criarAdmURL, admin);
+  }
+  removerAdm(id){
+    return this.http.delete(this.deletarAdmURL+"/"+id);
   }
   updateAdministrador(admin){
-    return this.http.put(this.updateadmURL,admin);
+    return this.http.put(this.updateAdmURL,admin);
   }
-
+  
   //users
   getUsers(){
     return this.http.get(this.listarUsersURL);
   }
-  removerUser(id){
-    return this.http.delete(this.deletarUsersURL+"/"+id);
+  getUser(id){
+    return this.http.get(this.listarUsersURL+"/"+id);
   }
   adicionarUser(user){
     return this.http.post(this.criarUserURL, user);
   }
-  getUser(id){
-    return this.http.get(this.listarUsersURL+"/"+id);
+  removerUser(id){
+    return this.http.delete(this.deletarUserURL+"/"+id);
+  }
+  updateUser(user){
+    console.log(user)
+    return this.http.put(this.updateUserURL,user);
   }
 }

@@ -10,11 +10,17 @@ import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts} from 'angu
 })
 export class UsrEditComponent implements OnInit {
   optionsModel = [];
-  profissoes = ['funcionario', 'estudante', 'zelador', 'professor'];
-  user:any = {}
+  profissoes = ['Zelador(a)', 'Professor(a)', 'Estudante', 'Funcionário(a)'];
+  user:any = {
+    'id':'',
+    'email':'',
+    'name': '',
+    'internal_id': '',
+    'profession': '',
+    'allowed_lab_id': []
+    };
   profissao:string;
-  salas = []
-  id:string;
+  id:number;
   constructor(
     private dbService:DbService,
     private router:Router,
@@ -27,7 +33,7 @@ export class UsrEditComponent implements OnInit {
     showUncheckAll: true,
     isLazyLoad: true,
     checkedStyle: 'fontawesome',
-    buttonClasses: 'btn btn-default btn-block',
+    buttonClasses: 'btn btn-primary',
     dynamicTitleMaxItems: 6,
     displayAllSelectedText: true
   };
@@ -47,18 +53,11 @@ export class UsrEditComponent implements OnInit {
   myOptions: IMultiSelectOption[];
   onSubmit(form){
     if(form.valid){
-      for(let j = 0; j < this.optionsModel.length; j++){
-        this.salas.push(this.myOptions[j].name);
-      }
-      this.user = {
-        'id': this.id,
-        'email': form.value.email,
-        'internal_id': form.value.ri,
-        "name": form.value.name,
-        "profession": this.profissao,
-        "permission": this.salas
-      };
-      this.dbService.adicionarUser(this.user).toPromise()
+      this.user.profession = this.profissao
+      this.user.allowed_lab_id = this.optionsModel
+      this.user.id = this.id
+      this.dbService.updateUser(this.user)
+      .toPromise()
       .then(res => {
         alert('Usuário editado com sucesso!')
         this.router.navigate(['/usr'])
@@ -68,7 +67,7 @@ export class UsrEditComponent implements OnInit {
           alert('Usuário não encontrado!');
           this.router.navigate(['/usr']);
         }else
-          alert('Erro ao editar usuário!');
+          alert('Erro: '+er.status+' ao editar usuário!');
       });
     }
   }
@@ -78,19 +77,27 @@ export class UsrEditComponent implements OnInit {
     .map(res=>res.json())
     .toPromise()
     .then(data => {
-      this.user = data.user
-      console.log(this.user)
+      this.user.name = data.users[0].name
+      this.user.email = data.users[0].email
+      this.user.internal_id = data.users[0].internal_id
+      this.user.profession = data.users[0].profession
+      data.users[0].allowed_lab.forEach(element => {
+        this.user.allowed_lab_id.push(element.laboratory_id)
+      });
+      this.optionsModel = this.user.allowed_lab_id
+      this.profissao = this.user.profession
     })
     .catch(er => alert('Erro: '+er.status+' ao listar as salas'))
 
-    this.dbService.getSalas().map(res=>res.json()).toPromise()
+    this.dbService.getSalas()
+    .map(res=>res.json())
+    .toPromise()
     .then(data => {
       this.myOptions = data.laboratories
     })
     .catch(er => alert('Erro: '+er.status+' ao listar as salas'))
-
-    this.optionsModel = this.user.permission;
   }
+
   cancel(){
     this.router.navigate(['usr']);
   }
