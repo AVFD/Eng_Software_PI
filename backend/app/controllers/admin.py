@@ -40,7 +40,7 @@ def ReadAdmin(ident):
     else:
         admins = Admin.query.all()
 
-    if admins[0] == None: return ResponseNotFound()
+    if admins[0] == None: return ResponseBadRequest()
 
     for admin in admins:
         admin_data = {}

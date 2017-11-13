@@ -33,6 +33,7 @@ def SaveToDataBase(new_data):
 #################################################################
 #### FUNCOES PARA RETORNO DAS RESPOSTAS - Ordem Numerica ########
 #################################################################
+
 def ResponseContinue():
     return Response(None, status=100, mimetype="")
 

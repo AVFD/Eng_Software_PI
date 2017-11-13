@@ -32,14 +32,27 @@ def CreateSchedule():
 
 
 @app.route("/schedule/read/<int:ident>", methods=["GET"])
-@app.route("/schedule/read", defaults={"ident": None}, methods=["GET"])
+@app.route("/schedule/read", defaults={"ident": None, "dayoftheweek": None, "laboratory": None}, methods=["GET"])
 def ReadSchedule(ident):
     #if not 'logged_in' in session: return ResponseUnauthorized()
     if request.method != "GET": return ResponseMethodNotAllowed()
     output = []
     schedules = []
+    arg_week = request.args.get('dayoftheweek')
+    arg_laboratory = request.args.get('laboratory')
+
     if ident:
         schedules.append(Schedule.query.filter_by(id=ident).first())
+    
+    elif arg_week and arg_laboratory:
+        schedules.append(Schedule.query.filter_by(day_of_the_week=arg_week, laboratory=arg_laboratory))
+    
+    elif arg_week:
+        schedules.append(Schedule.query.filter_by(day_of_the_week=arg_week))
+
+    elif arg_laboratory:
+        schedules.append(Schedule.query.filter_by(laboratory=arg_laboratory))
+
     else:
         schedules = Schedule.query.all()
     

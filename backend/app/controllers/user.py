@@ -44,6 +44,7 @@ def CreateUser():
     elif insertion_result_list["user"] == "exist": return ResponseConflict()
 
 
+#@app.route("/user/read/<str:profession>", methods=["GET"])
 @app.route("/user/read/<int:ident>", methods=["GET"])
 @app.route("/user/read", defaults={"ident": None}, methods=["GET"])
 def ReadUser(ident):
@@ -52,8 +53,15 @@ def ReadUser(ident):
         output = []
         users = []
         user_data = {}
+        arg_profession = request.args.get('profession')
+        print("VALOR DE ARG_PROFESSION")
+        print(arg_profession)
         if ident:
             users.append(User.query.filter_by(id=ident).first())
+        
+        elif arg_profession:
+            users = User.query.filter_by(profession=arg_profession).all()
+        
         else:
             users = User.query.all()
             
@@ -87,7 +95,7 @@ def UpdateUser():
     data = request.get_json()
     if not IsString(data['name']): return ResponseBadRequest()
 
-    #checa se realmente ouve auteração
+    #checa se realmente ouve alteração
     if SearchUser(check=data):
         print("Tá tentando atualizar com o mesmo conteúdo")
         return ResponseConflict()
