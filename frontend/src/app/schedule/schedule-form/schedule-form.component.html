@@ -14,13 +14,13 @@
             </select>
           </div>
           <div class="col-md-6">
-            <label><b>Dia da Semana</b></label>
-            <br>
-            <select (click)="diaSelected($event.target.value)" class="btn">
-              <option disabled>Selecione o dia</option>
-              <option *ngFor="let dias of dSemana">{{ dias }}-feira</option>
-            </select>
-          </div>
+              <label><b>Dia da Semana</b></label>
+              <br>
+              <select (click)="diaSelected($event.target.value)" class="btn">
+                  <option disabled>Selecione o dia</option>
+                  <option *ngFor="let dias of dSemana">{{ dias }}-feira</option>
+                </select>
+            </div>
         </div>
         <div class="form-group">
             <label for="inputName"><b>Horário de inicio</b></label>
@@ -48,5 +48,8 @@
             <button (click)="cancel()" type="button" class="btn btn-danger">Cancelar</button>
             <button type="submit" class="btn btn-success">Criar</button>
         </div>
+        <div class="alert alert-danger" *ngIf="form.submitted && (!porpouse.valid || !inicio.valid || !termino.valid)">
+                <p align="center">Todos os campos são obrigatórios.</p>
+            </div>
     </form>
 </div>

@@ -75,7 +75,6 @@ export class UsrComponent implements OnInit {
     .then(data => {
       this.usrJsonBackEnd = data.users
     })
-    .catch(er => alert('Erro: '+er.status+' ao listar Usuários!'));
   }
   removeUser(id){
     if(confirm('Tem certeza que você deseja excluir?')){

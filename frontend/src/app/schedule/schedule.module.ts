@@ -7,6 +7,7 @@ import { NavbarModule } from './../navbar/navbar.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
+import { ScheduleEditComponent } from './schedule-edit/schedule-edit.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ScheduleFormComponent } from './schedule-form/schedule-form.component';
   ],
   declarations: [
     ScheduleComponent,
-    ScheduleFormComponent
+    ScheduleFormComponent,
+    ScheduleEditComponent
   ]
 })
 export class ScheduleModule { }

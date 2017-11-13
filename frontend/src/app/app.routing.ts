@@ -1,3 +1,4 @@
+import { ScheduleEditComponent } from './schedule/schedule-edit/schedule-edit.component';
 import { ScheduleFormComponent } from './schedule/schedule-form/schedule-form.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { SalasEditComponent } from './salas/salas-edit/salas-edit.component';
@@ -29,6 +30,7 @@ const APP_ROUTES: Routes = [
     { path: 'adm/create', component: AdmFormComponent, canActivate:[AuthGuard]},
     { path: 'usr/create', component: UsrFormComponent, canActivate:[AuthGuard]},
     { path: 'schedule/create', component: ScheduleFormComponent, canActivate:[AuthGuard]},
+    { path: 'schedule/:id', component: ScheduleEditComponent, canActivate:[AuthGuard]},
     { path: 'salas/:id', component: SalasEditComponent, canActivate:[AuthGuard]},
     { path: 'usr/:id', component: UsrEditComponent, canActivate:[AuthGuard]},
     { path: 'adm/:id', component: AdmEditComponent, canActivate:[AuthGuard]},

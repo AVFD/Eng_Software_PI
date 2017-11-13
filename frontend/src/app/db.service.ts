@@ -23,6 +23,7 @@ export class DbService {
   private criarScheduleURL:string = ip+"/schedule/create";
   private listarScheduleURL:string = ip+"/schedule/read";
   private deletarScheURL:string = ip+"/schedule/delete";
+  private updateScheURL:string = ip+"/schedule/update";
 
   constructor(private http:Http) { }
 
@@ -85,10 +86,16 @@ export class DbService {
   adicionarSchedule(schedule){
     return this.http.post(this.criarScheduleURL, schedule);
   }
-  getSchedule(dia, sala_id){
+  getScheduleByDay(dia, sala_id){
     return this.http.get(this.listarScheduleURL+"?day_of_the_week="+dia+"&laboratory_id="+sala_id);
   }
   removerSche(id){
     return this.http.delete(this.deletarScheURL+"/"+id);
+  }
+  getSchedule(id){
+    return this.http.get(this.listarScheduleURL+"/"+id);
+  }
+  updateSchedule(schedule){
+    return this.http.put(this.updateScheURL, schedule);
   }
 }

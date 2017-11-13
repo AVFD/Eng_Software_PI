@@ -31,7 +31,7 @@ export class ScheduleComponent implements OnInit {
     })
   }
   onSubmit(form){
-    this.dbService.getSchedule(this.diaSelecionado, this.salaSelecionada)
+    this.dbService.getScheduleByDay(this.diaSelecionado, this.salaSelecionada)
     .map(res => res.json())
     .toPromise()
     .then(data => this.schedules = data.schedules)
@@ -55,5 +55,8 @@ export class ScheduleComponent implements OnInit {
       this.dbService.removerSche(this.schedules[id].id).subscribe();
       this.schedules.splice(id, 1);
     }
+  }
+  editar(id){
+    this.route.navigate(['/schedule', id]);
   }
 }

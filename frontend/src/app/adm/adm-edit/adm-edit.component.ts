@@ -37,7 +37,6 @@ export class AdmEditComponent implements OnInit {
   }
   onSubmit(form) {
     if(form.valid){
-      console.log(this.adminSelected)
       this.dbService.updateAdministrador(this.adminSelected)
       .toPromise()
       .then(res => {

@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+<div class="container col-md-6">
+  <br>
+  <h2 align="center">Editar Reserva de horários</h2>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <br>
+    <div class="form-group">
+      <label>
+        <b>Dia da Semana</b>
+      </label>
+      <br>
+      <select (click)="diaSelected($event.target.value)" class="btn">
+        <option disabled>Selecione o dia</option>
+        <option [selected]="dias+'-feira' == diaSelecionado" *ngFor="let dias of dSemana">{{ dias }}-feira</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="inputName">
+        <b>Horário de inicio</b>
+      </label>
+      <input name="inicio" [(ngModel)]="schedule.start" type="text" class="form-control" placeholder="Ex: 10:30:00">
+    </div>
+    <div class="form-group">
+      <label for="inputName">
+        <b>Horário de término</b>
+      </label>
+      <input name="termino" [(ngModel)]="schedule.end" type="text" class="form-control" placeholder="Ex: 11:50:00" >
+    </div>
+    <div class="form-group">
+      <label for="inputName">
+        <b>Propósito</b>
+      </label>
+      <input name="purpouse" [(ngModel)]="schedule.purpouse" type="text" class="form-control" 
+      placeholder="Ex: Reservado para limpeza">
+    </div>
+    <div class="form-group">
+      <label for="inputName">
+        <b>Autorização</b>
+      </label>
+      <select (click)="profissaoSelected($event.target.value)" class="form-control">
+        <option disabled>Selecione sua profissão</option>
+        <option [selected]="prof == profissaoSelecionada" *ngFor="let prof of profissoes">{{ prof }}</option>
+      </select>
+    </div>
+    <div align="center">
+      <button (click)="cancel()" type="button" class="btn btn-danger">Cancelar</button>
+      <button type="submit" class="btn btn-success">Confirmar</button>
+    </div>
+  </form>
+</div>

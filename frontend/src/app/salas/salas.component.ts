@@ -23,7 +23,6 @@ export class SalasComponent implements OnInit {
     .then((data)=>{
       this.salasJsonBackEnd = data.laboratories
     })
-    .catch(er => alert('Erro: '+er.status+' ao listar Salas!'));
   }
   removeSala(id){
     if(confirm('Tem certeza que você deseja excluir?')){
