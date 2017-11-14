@@ -54,7 +54,6 @@ export class ScheduleEditComponent implements OnInit {
       'start': form.value.inicio
     };
     this.dbService.updateSchedule(this.schedule)
-    .map(res => res.json())
     .toPromise()
     .then((res) => {
       alert('Reserva de horários editada com sucesso!')
