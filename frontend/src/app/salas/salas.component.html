@@ -19,12 +19,12 @@
       <tr *ngFor="let salas of salasJsonBackEnd; let idx = index">
         <td>{{ salas.name }}</td>
         <td>
-          <button (click)="editarSala(salas.id)" class="btn btn-primary">
+          <button type="button" (click)="editarSala(salas.id)" class="btn btn-primary">
             <a>
               <img src="../assets/edit2_icon.png" width="20" />
             </a>
           </button>
-          <button  (click)="removeSala(idx)"class="btn btn-danger">
+          <button  type="button" (click)="removeSala(idx)"class="btn btn-danger">
             <a>
               <img src="../assets/remove_icon.png" width="20" />
             </a>
