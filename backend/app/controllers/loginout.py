@@ -39,7 +39,8 @@ def do_admin_login():
     if request.method!="POST": return ResponseMethodNotAllowed() 
     dado = request.get_json()
     name = dado['username']
-    password = dado['password']    
+    if not exist_in_data_base(name): return ResponseNotFound()
+    password = dado['password']
     #name = request.form['username']
     #password = request.form['password']
     if not auth_database_check(name, password): return ResponseBadRequest()
@@ -67,3 +68,6 @@ def auth_database_check(username, userpassword):
     password = check_password_hash(admin_try.password, userpassword)
     if admin_try and password: return True
     return False
+
+def exist_in_data_base(name):
+    return Admin.query.filter_by(login_name=username).first()
