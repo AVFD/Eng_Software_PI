@@ -1,3 +1,4 @@
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ScheduleComponent } from './schedule.component';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { routing } from './../app.routing';
@@ -16,7 +17,8 @@ import { ScheduleEditComponent } from './schedule-edit/schedule-edit.component';
     FormsModule,
     BsDropdownModule.forRoot(),
     routing,
-    MultiselectDropdownModule
+    MultiselectDropdownModule,
+    TooltipModule.forRoot()
   ],
   declarations: [
     ScheduleComponent,

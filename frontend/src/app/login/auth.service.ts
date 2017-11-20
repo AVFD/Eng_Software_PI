@@ -35,6 +35,15 @@ export class AuthService {
     this.usuarioAutenticado = bool;
   }
   errorMensage(error){
-    alert('Erro: '+error+' ao logar!')
+    switch(error){
+      case 400:{
+        alert('Login ou senha inválidos!')
+        break;
+      }
+      case 0:{
+        alert('Credenciais não cadastradas no sistema!');
+        break;
+      }
+    }
   }
 }

@@ -15,7 +15,7 @@
                     <option *ngFor="let dias of dSemana">{{ dias }}-feira</option>
                 </select>
                 <button type="submit" style="margin-left: 50px" class="btn btn-success">Consultar</button>
-                <a style="float:right;" routerLink="/schedule/create" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
+                <a tooltip="Adicionar" style="float:right;" routerLink="/schedule/create" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
                     <img src="../assets/addSchedule_icon.png" width="30" />
                 </a>
             </div>
@@ -37,12 +37,12 @@
                     <td>{{ sche.purpouse }}</td>
                     <td>{{ sche.profession }}</td>
                     <td>
-                        <button type="button" (click)="editar(sche.id)" class="btn btn-primary">
+                        <button tooltip="Editar" type="button" (click)="editar(sche.id)" class="btn btn-primary">
                             <a>
                                 <img src="../assets/editSchedule_icon.png" width="20" />
                             </a>
                         </button>
-                        <button type="button" (click)="deletarSche(idx)" class="btn btn-danger">
+                        <button tooltip="Remover" type="button" (click)="deletarSche(idx)" class="btn btn-danger">
                             <a>
                                 <img src="../assets/remove_icon.png" width="20" />
                             </a>

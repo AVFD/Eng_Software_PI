@@ -87,5 +87,6 @@ export class UsrComponent implements OnInit {
   }
   filterSelected(profissao){
     this.profissao = profissao;
+    this.onSubmit(null);
   }
 }

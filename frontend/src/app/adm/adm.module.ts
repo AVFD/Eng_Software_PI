@@ -2,6 +2,8 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
 import { NavbarModule } from './../navbar/navbar.module';
 import { routing } from './../app.routing';
 
@@ -14,7 +16,8 @@ import { AdmEditComponent } from './adm-edit/adm-edit.component';
     CommonModule,
     NavbarModule,
     FormsModule,
-    routing
+    routing,
+    TooltipModule.forRoot()
   ],
   declarations: [
     AdmComponent,

@@ -1,3 +1,4 @@
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,7 +15,8 @@ import { SalasEditComponent } from './salas-edit/salas-edit.component';
     CommonModule,
     NavbarModule,
     FormsModule,
-    routing
+    routing,
+    TooltipModule.forRoot()
   ],
   declarations: [
     SalasComponent,

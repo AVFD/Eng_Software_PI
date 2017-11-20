@@ -2,7 +2,7 @@
 <br>
 
 <div class="container">
-  <a style="float:right;" routerLink="/adm/create" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
+  <a tooltip="Adicionar" style="float:right;" routerLink="/adm/create" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
       <img src="../assets/add_icon.png" width="50" />
   </a>
   <br>
@@ -21,12 +21,13 @@
         <td>{{ adm.name }}</td>
         <td>{{ adm.email }}</td>
         <td>
-          <button type="button" (click)="editar(adm.id)" class="btn btn-primary">
+          <button tooltip="Editar" type="button" (click)="editar(adm.id)" class="btn btn-primary">
             <a>
               <img src="../assets/edicao_icon.png" width="20" />
             </a>
           </button>
-          <button type="button"[disabled]="adminsJsonBackEnd.length === 1"(click)="deletarAdm(idx)"class="btn btn-danger">
+          <button tooltip="Remover" type="button"[disabled]="adminsJsonBackEnd.length === 1"
+           (click)="deletarAdm(idx)"class="btn btn-danger">
             <a>
               <img src="../assets/remove_icon.png" width="20" />
             </a>

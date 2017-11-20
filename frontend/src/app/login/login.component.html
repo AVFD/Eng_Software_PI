@@ -3,12 +3,14 @@
   <h2>Login</h2>
   <div class="input">
     <label>Username</label>
-    <input type="text" name="username" class="form-control" #username="ngModel" ngModel required>
+    <input type="text" name="username" class="form-control" #username="ngModel"
+    placeholder="Nome de usuário" ngModel required>
   </div>
   <p class="erroMsg" *ngIf="f.submitted && !username.valid">*O campo username é obrigatório</p>
   <div class="input">
     <label>Password</label>
-    <input #password="ngModel" type="password" name="password" class="form-control" ngModel required>
+    <input #password="ngModel" type="password" name="password" 
+    placeholder="Senha" class="form-control" ngModel required>
   </div>
   <p *ngIf="f.submitted && !password.valid" class="erroMsg">*O campo password é obrigatório</p>
   <div class="input">

@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="container col-md-6">
     <br>
-    <h2 align="center">Cadastro de Administrador</h2>
+    <h2 align="center">Cadastrar Administrador</h2>
     <form #form="ngForm" (ngSubmit)="onSubmit(form)">
         <div class="form-group">
             <label for="inputName">Nome</label>
@@ -34,7 +34,7 @@
         </div>
         <div align="center">
             <button (click)="cancel()" type="button" class="btn btn-danger">Cancelar</button>
-            <button type="submit" class="btn btn-success">Criar</button>
+            <button type="submit" class="btn btn-success">Confirmar</button>
         </div>
         <br>
         <div class="alert alert-danger" *ngIf="form.submitted && (!login.valid || !password.valid || !email.valid || !name.valid)">

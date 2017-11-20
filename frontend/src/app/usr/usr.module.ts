@@ -1,3 +1,4 @@
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -19,7 +20,8 @@ import { UsrEditComponent } from './usr-edit/usr-edit.component';
     FormsModule,
     BsDropdownModule.forRoot(),
     routing,
-    MultiselectDropdownModule
+    MultiselectDropdownModule,
+    TooltipModule.forRoot()
   ],
   declarations: [
     UsrComponent,

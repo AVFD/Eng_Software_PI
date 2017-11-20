@@ -8,7 +8,7 @@
           <option *ngFor="let prof of profissoes">{{ prof }}</option>
       </select>
       <button type="submit" style="margin-left: 20px" class="btn btn-success">Filtrar</button>
-    <a style="float:right;" routerLink="/usr/create" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
+    <a tooltip="Adicionar" style="float:right;" routerLink="/usr/create" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
       <img src="../assets/add_icon.png" width="50" />
     </a>
     <br>
@@ -33,8 +33,9 @@
           <td *ngIf="usr.internal_id == 0" >Não possui</td>
           <td>{{ usr.profession }}</td>
           <td>
-            <div class="btn-group" dropdown>
-              <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+            <div class="btn-group" [ngSwitch]="usr.allowed_lab.length === 0" dropdown>
+                <button disabled class="btn btn-primary" *ngSwitchCase="true">Nenhuma</button>
+              <button *ngSwitchDefault dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
                 Salas Permitidas
                 <span class="caret"></span>
               </button>
@@ -46,12 +47,12 @@
             </div>
           </td>
           <td>
-            <button type="button" (click)="editar(usr.id)"class="btn btn-primary">
+            <button tooltip="Editar" type="button" (click)="editar(usr.id)"class="btn btn-primary">
               <a>
                 <img src="../assets/edicao_icon.png" width="20" />
               </a>
             </button>
-            <button type="button"(click)="removeUser(idx)" class="btn btn-danger">
+            <button tooltip="Remover" type="button"(click)="removeUser(idx)" class="btn btn-danger">
               <a>
                 <img src="../assets/remove_icon.png" width="20" />
               </a>
