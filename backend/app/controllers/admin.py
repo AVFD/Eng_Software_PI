@@ -59,6 +59,7 @@ def UpdateAdmin():
     data = request.get_json()
     if not IsString(data['name']): return ResponseBadRequest()
     admin_update = SearchAdmin(ident=data["id"])
+    if ExistEmail(data['email']): return ResponseConflict()
     if not admin_update: return ResponseBadRequest()
     hashed_password = generate_password_hash(data['password'], method='sha256')
     admin_update.name = data['name']
@@ -95,3 +96,7 @@ def SearchAdmin(data=None, ident=None):
 
     elif ident:
         return Admin.query.filter_by(id=ident).first()
+
+
+def ExistEmail(email):
+    return Admin.query.filter_by(email=email).first()
