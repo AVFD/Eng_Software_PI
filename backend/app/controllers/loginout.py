@@ -70,4 +70,4 @@ def auth_database_check(username, userpassword):
     return False
 
 def exist_in_data_base(name):
-    return Admin.query.filter_by(login_name=username).first()
+    return Admin.query.filter_by(login_name=name).first()
