@@ -51,13 +51,17 @@ def ReadLaboratory(ident):
 def UpdateLaboratory():
     #if not 'logged_in' in session: return ResponseUnauthorized()
     if request.method != "PUT": return ResponseMethodNotAllowed()
+
     data = request.get_json()
     if not IsString(data['name']): return ResponseBadRequest()
+
     laboratory_update = SearchLaboratory(ident=data["id"])
     if not laboratory_update: return ResponseConflict()
+
     laboratory_exist = SearchLaboratory(name=data["name"])
-    if laboratory_exist: return ResponseBadRequest()
+    if laboratory_exist: return ResponseConflict()
     laboratory_update.name = data["name"]
+
     db.session.commit()
     return ResponseOk()
 
