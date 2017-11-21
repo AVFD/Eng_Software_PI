@@ -62,7 +62,7 @@ def ResponseUnauthorized():
     return Response(None, status=401, mimetype="")
 
 def ResponseNotFound():
-    return Response(None, status=404, mimetype="")
+    return Response(None, status="Não pode ser encontrado", status_code=404 mimetype="")
 
 def ResponseMethodNotAllowed():
     return Response(None, status=405, mimetype="")
