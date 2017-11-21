@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsrComponent implements OnInit {
   usrJsonBackEnd:any = [];
-  profissoes = ['Todos', 'Zelador(a)', 'Professor(a)', 'Estudante', 'Funcionário(a)'];
+  profissoes = ['Zelador(a)', 'Professor(a)', 'Estudante', 'Funcionário(a)'];
   profissao:string;
   constructor(
     private router:Router,
@@ -62,9 +62,6 @@ export class UsrComponent implements OnInit {
         })
         break;
       }
-      default :
-        alert('Opção Invalida!');
-        break;
     }
   }
   ngOnInit() {
@@ -73,7 +70,9 @@ export class UsrComponent implements OnInit {
     .map(res => res.json())
     .toPromise()
     .then(data => {
-      this.usrJsonBackEnd = data.users
+      this.usrJsonBackEnd = data.users;
+      this.profissao = 'Todos';
+
     })
   }
   removeUser(id){

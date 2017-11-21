@@ -2,18 +2,17 @@
 <br>
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <div class="container">
-      <label><b>Filtrar por: </b> </label>
-      <select (click)="filterSelected($event.target.value)" class="btn">
-          <option disabled>Selecione o filtro </option>
-          <option *ngFor="let prof of profissoes">{{ prof }}</option>
-      </select>
-      <button type="submit" style="margin-left: 20px" class="btn btn-success">Filtrar</button>
+    <label><b>Filtrar por: </b> </label>
+    <select (click)="filterSelected($event.target.value)" class="btn">
+      <option selected>Todos</option>
+      <option *ngFor="let prof of profissoes">{{ prof }}</option>
+    </select>
+    <button type="submit" style="margin-left: 20px" class="btn btn-success">Filtrar</button>
+    
     <a tooltip="Adicionar" style="float:right;" routerLink="/usr/create" class="btn btn-outline-success btn-lg" role="button" aria-pressed="true">
       <img src="../assets/add_icon.png" width="50" />
     </a>
-    <br>
-    <br>
-    <br>
+    <h4 style="text-align: center;">Exibindo: {{profissao}}</h4>
     <table class="table table-hover ">
       <thead>
         <tr>
@@ -34,7 +33,7 @@
           <td>{{ usr.profession }}</td>
           <td>
             <div class="btn-group" [ngSwitch]="usr.allowed_lab.length === 0" dropdown>
-                <button disabled class="btn btn-primary" *ngSwitchCase="true">Nenhuma</button>
+                <button tooltip="Nenhuma sala permitida!" class="btn btn-primary" *ngSwitchCase="true">Nenhuma</button>
               <button *ngSwitchDefault dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
                 Salas Permitidas
                 <span class="caret"></span>

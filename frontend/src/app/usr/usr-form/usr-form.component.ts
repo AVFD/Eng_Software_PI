@@ -58,7 +58,7 @@ export class UsrFormComponent implements OnInit {
         this.router.navigate(['/usr'])
       })
       .catch(er =>{
-        alert('Erro '+er.status+' ao adicionar usuário!');
+       console.log(er);
         // if(er.status === 409){
         //   alert('Usuário ou email ja cadastrados!')
         // }else if(er.status === 0){

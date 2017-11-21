@@ -31,9 +31,6 @@ export class AdmEditComponent implements OnInit {
       .then((data) => {
         this.adminSelected = data.admins[0];
       })
-      .catch(er => {
-        alert('Erro: '+er.status+' ao listar admin '+this.id)
-      });
   }
   onSubmit(form) {
     if(form.valid){
@@ -44,12 +41,21 @@ export class AdmEditComponent implements OnInit {
         this.router.navigate(['/adm'])
       })
       .catch(er => {
-        alert('Erro: '+er.status+' ao editar.')
+        this.errorMensage(er.status);
       });
     }
   }
   
   cancel() {
     this.router.navigate(['/adm'])
+  }
+
+  errorMensage(error){
+    switch(error){
+      case 409:{
+        alert('Email já esta cadastrado!')
+        break;
+      }
+    }
   }
 }

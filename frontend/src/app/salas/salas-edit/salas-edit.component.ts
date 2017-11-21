@@ -26,7 +26,6 @@ export class SalasEditComponent implements OnInit {
     .then(data => {
       this.sala = data.laboratories[0]
     })
-    .catch(er => alert('Erro: '+er.status+' ao listar as salas'))
   }
   onSubmit(form){
     if(form.valid){
@@ -37,7 +36,8 @@ export class SalasEditComponent implements OnInit {
         this.route.navigate(['/salas'])
       })
       .catch(er => {
-        alert('Erro: '+er.status+' ao editar sala')
+        if(er.status === 409)
+          alert('Sala já cadastrada!');
       });
     }
   }

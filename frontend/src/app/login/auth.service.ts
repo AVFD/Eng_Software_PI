@@ -23,6 +23,7 @@ export class AuthService {
         return false;
       })
       .catch((error) => {
+        console.log(error);
         this.errorMensage(error.status)
         return false;
       });
@@ -40,9 +41,8 @@ export class AuthService {
         alert('Login ou senha inválidos!')
         break;
       }
-      case 0:{
-        alert('Credenciais não cadastradas no sistema!');
-        break;
+      case 404:{
+        alert('Credenciais não cadastradas no sistema!')
       }
     }
   }

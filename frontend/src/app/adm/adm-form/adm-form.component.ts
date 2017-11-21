@@ -32,7 +32,7 @@ export class AdmFormComponent implements OnInit {
       })
       .catch(er =>{
         if(er.status === 409){
-          alert('Usuário ou email ja cadastrados!')
+          alert('Email já cadastrados!')
         }else if(er.status === 0){
           alert('Não foi possivel conectar com o banco, tente novamente mais tarde!');
         }
