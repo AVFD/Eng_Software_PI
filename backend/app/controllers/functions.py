@@ -71,7 +71,7 @@ def ResponseMethodNotAcceptable():
     return Response(None, status=406, mimetype="")
 
 def ResponseConflict():
-    return Response(None, status=409, mimetype="")
+    return Response(None, status="Conflito entre os dados", status_code=409, mimetype="")
 
 def ResponseGone():
     return Response(None, status=410, mimetype="")
