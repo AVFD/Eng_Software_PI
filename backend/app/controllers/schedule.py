@@ -38,17 +38,11 @@ def ReadSchedule(ident):
     if request.method != "GET": return ResponseMethodNotAllowed()
     output = []
     schedules = []
-    arg_week = request.args.get('day_of_the_week')
+    #arg_week = request.args.get('day_of_the_week')
     arg_laboratory = request.args.get('laboratory_id')
 
     if ident:
         schedules.append(Schedule.query.filter_by(id=ident).first())
-    
-    elif arg_week and arg_laboratory:
-        schedules = Schedule.query.filter_by(day_of_the_week=DayOfTheWeek(arg_week).name, laboratory_id=arg_laboratory).all()
-    
-    elif arg_week:
-        schedules = Schedule.query.filter_by(day_of_the_week=DayOfTheWeek(arg_week).name).all()
 
     elif arg_laboratory:
         schedules = Schedule.query.filter_by(laboratory_id=arg_laboratory).all()
@@ -56,6 +50,10 @@ def ReadSchedule(ident):
     else:
         schedules = Schedule.query.all()
     
+    
+    #elif arg_week and arg_laboratory: schedules = Schedule.query.filter_by(day_of_the_week=DayOfTheWeek(arg_week).name, laboratory_id=arg_laboratory).all()
+    
+    #elif arg_week: schedules = Schedule.query.filter_by(day_of_the_week=DayOfTheWeek(arg_week).name).all()
     if len(schedules) == 0 or schedules[0] == None: return ResponseNotFound()
 
     print(schedules)
