@@ -67,7 +67,7 @@ class ConnectionWithDataBase(object):
 		return True
 
 
-	def IsStudentSecurityKey(securityKey):
+	def IsStudentSecurityKey(self, securityKey):
 		firstPhrase = 'SELECT U.profession FROM user U, security_key SK '
 		middlePhrase = 'WHERE SK.security_key = ' + self.ChangeStringToDataBaseCommand(securityKey) + ' AND U.profession = "estudante" '
 		lastPhrase = 'AND SK.id = U.security_key_id'
@@ -98,13 +98,13 @@ class ConnectionWithDataBase(object):
 		return True
 
 
-	def ResultCommand(command):
+	def ResultCommand(self, command):
 		with db.connect() as con:
 			result = con.executa(command)
 			return result.fetchone()[0]
 
 
-	def ChangeStringToDataBaseCommand(phrase):
+	def ChangeStringToDataBaseCommand(self, phrase):
 		return '"' + phrase + '"'
 
 
