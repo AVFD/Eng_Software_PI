@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+
 from sqlalchemy import create_engine
 
 #dataBaseDirectory = 'mysql+pymysql://root:utfpr8@localhost/picadel'
@@ -6,8 +9,8 @@ class ConnectionWithDataBase(object):
 	count = 0
 	def __init__ (self, laboratoryName, dataBaseDirectory):
 		if ConnectionWithDataBase.count == 0:
-			self.setDataBase(dataBaseDirectory)
-			self.setLaboratoryName(laboratoryName)
+			self.laboratoryName = laboratoryName
+			self.dataBase = create_engine(dataBaseDirectory)
 			ConnectionWithDataBase.count = 1
 
 
@@ -66,8 +69,7 @@ class ConnectionWithDataBase(object):
 
 	def IsStudentSecurityKey(securityKey):
 		firstPhrase = 'SELECT U.profession FROM user U, security_key SK '
-		middlePhrase = 'WHERE SK.security_key = ' + self.ChangeStringToDataBaseCommand(securityKey) +
-					   ' AND U.profession = "estudante" '
+		middlePhrase = 'WHERE SK.security_key = ' + self.ChangeStringToDataBaseCommand(securityKey) + ' AND U.profession = "estudante" '
 		lastPhrase = 'AND SK.id = U.security_key_id'
 
 		command = firstPhrase + middlePhrase + lastPhrase
@@ -88,8 +90,7 @@ class ConnectionWithDataBase(object):
 		dayOfTheWeekCondition = 'S.day_of_the_week = ' + self.ChangeStringToDataBaseCommand(currentDayOfTheWeek)
 		
 		firstPhrase = 'SELECT * FROM schedule S, laboratory L '
-		middlePhrase = 'WHERE L.id = S.laboratory_id AND ' + laboratoryCondition " AND " + startTimeCondition +
-					   ' AND ' + endTimeCondition + ' AND ' + dayOfTheWeekCondition
+		middlePhrase = 'WHERE L.id = S.laboratory_id AND ' + laboratoryCondition + " AND " + startTimeCondition + ' AND ' + endTimeCondition + ' AND ' + dayOfTheWeekCondition
 		command = firstPhrase + middlePhrase
 
 		if not self.ResultCommand(command): return False
