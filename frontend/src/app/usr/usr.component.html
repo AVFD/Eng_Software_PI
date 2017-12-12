@@ -35,7 +35,7 @@
             <div class="btn-group" [ngSwitch]="usr.allowed_lab.length === 0" dropdown>
                 <button tooltip="Nenhuma sala permitida!" class="btn btn-primary" *ngSwitchCase="true">Nenhuma</button>
               <button *ngSwitchDefault dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
-                Salas Permitidas
+                Salas Permitidas ({{usr.allowed_lab.length}})
                 <span class="caret"></span>
               </button>
               <ul *dropdownMenu class="dropdown-menu" role="menu">

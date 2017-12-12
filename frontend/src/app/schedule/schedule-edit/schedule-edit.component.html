@@ -31,16 +31,7 @@
         <b>Propósito</b>
       </label>
       <input name="purpouse" [(ngModel)]="schedule.purpouse" type="text" class="form-control" 
-      placeholder="Ex: Reservado para limpeza">
-    </div>
-    <div class="form-group">
-      <label for="inputName">
-        <b>Autorização</b>
-      </label>
-      <select (click)="profissaoSelected($event.target.value)" class="form-control">
-        <option disabled>Selecione sua profissão</option>
-        <option [selected]="prof == profissaoSelecionada" *ngFor="let prof of profissoes">{{ prof }}</option>
-      </select>
+      placeholder="Ex: Aula de grafos">
     </div>
     <div align="center">
       <button (click)="cancel()" type="button" class="btn btn-danger">Cancelar</button>

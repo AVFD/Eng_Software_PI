@@ -11,7 +11,7 @@ import { IMultiSelectTexts, IMultiSelectOption, IMultiSelectSettings } from 'ang
 })
 export class ScheduleFormComponent implements OnInit {
   //selecionar ComboBox
-  profissaoSelecionada:string;
+  profissaoSelecionada = "Estudante";
   diaSelecinado:string;
   salaSelectionada:number;
   //valor ComboBox
@@ -35,7 +35,7 @@ export class ScheduleFormComponent implements OnInit {
         'profession': this.profissaoSelecionada,
         'laboratory_id': this.salaSelectionada
       }
-      console.log(this.schedule)
+
       this.dbService.adicionarSchedule(this.schedule)
       .toPromise()
       .then(()=>{

@@ -10,11 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class ScheduleComponent implements OnInit {
   //itens comboBox selecionados
   salaSelecionada:string;
-  diaSelecionado:string;
-
   //itens do comboBox
   salas:any = [];
-  dSemana = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta'];
 
   schedules:any = [];
   constructor(
@@ -31,7 +28,7 @@ export class ScheduleComponent implements OnInit {
     })
   }
   onSubmit(form){
-    this.dbService.getScheduleByDay(this.diaSelecionado, this.salaSelecionada)
+    this.dbService.getScheduleByDay(this.salaSelecionada)
     .map(res => res.json())
     .toPromise()
     .then(data => this.schedules = data.schedules)
@@ -46,9 +43,7 @@ export class ScheduleComponent implements OnInit {
   }
   salaSelected(sala){
     this.salaSelecionada = sala;
-  }
-  diaSelected(dia){
-    this.diaSelecionado = dia;
+    this.onSubmit(null);
   }
   deletarSche(id){
     if(confirm('Tem certeza que você deseja excluir?')){

@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <br>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+
+    <div class="form-row">
+      <h4>Data do relatório: </h4>
+      <div class="form-group col-md-2">
+        <input class = "form-control" name="data_inicio"[textMask]="{mask: mask}" 
+        [(ngModel)]="data_inicio" placeholder="Inicial (dd/mm/aaaa)" type="text"/>
+      </div>
+      <div class="form-group col-md-2">
+          <input class = "form-control" name="data_fim"[textMask]="{mask: mask}" 
+          [(ngModel)]="data_fim" placeholder="Final (dd/mm/aaaa)" type="text"/>
+      </div>
+      <div align="center">
+        <button type="submit" style="margin-left: 15px" class="btn btn-success">Confirmar</button>
+      </div>
+    </div>
+  </form>
+  <br>
+  <br>
+    <table *ngIf="data_valida"   class="table table-hover ">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Gerenciar</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>

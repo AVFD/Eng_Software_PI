@@ -7,6 +7,7 @@ import { AlertModule } from 'ngx-bootstrap';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
+import { RelatorioModule } from './relatorio/relatorio.module';
 import { SalasModule } from './salas/salas.module';
 import { ScheduleModule } from './schedule/schedule.module';
 import { UsrModule } from './usr/usr.module';
@@ -15,6 +16,7 @@ import { NavbarModule } from './navbar/navbar.module';
 import { HomeModule } from './home/home.module';
 import { LoginModule } from './login/login.module';
 import { AdmModule } from './adm/adm.module';
+
 
 import { AuthGuard } from './guards/auth.guard';
 import { routing } from './app.routing';
@@ -42,6 +44,7 @@ import { AppComponent } from './app.component';
     NavbarModule,
     PaginaoencotradaModule,
     ScheduleModule,
+    RelatorioModule,
     routing
   ],
   providers: [AuthGuard, AuthService, DbService],

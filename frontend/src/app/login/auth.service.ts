@@ -3,23 +3,31 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/toPromise';
 
+
 const ip = "http://127.0.0.1:5000";
 @Injectable()
 export class AuthService {
   private usuarioAutenticado: boolean = false;
   url: string = ip + "/login";
 
-  constructor(private http: Http) { }
-
+  constructor(
+    private http: Http,
+  ) { }
+  ngOnInit(){
+   this.usuarioAutenticado = JSON.parse(localStorage.getItem('autenticado'));
+   
+  }
   async fazerLogin(user) {
     await this.http.post(this.url, user)
       .toPromise()
       .then(data => {
         if (data.status == 200) {
+          localStorage.setItem('autentidado', 'true');
           this.usuarioAutenticado = true;
           return true;
         }
         this.usuarioAutenticado = false;
+        localStorage.setItem('autentidado', 'false');
         return false;
       })
       .catch((error) => {

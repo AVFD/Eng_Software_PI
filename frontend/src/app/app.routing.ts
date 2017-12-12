@@ -1,3 +1,4 @@
+import { RelatorioComponent } from './relatorio/relatorio.component';
 import { ScheduleEditComponent } from './schedule/schedule-edit/schedule-edit.component';
 import { ScheduleFormComponent } from './schedule/schedule-form/schedule-form.component';
 import { ScheduleComponent } from './schedule/schedule.component';
@@ -22,6 +23,7 @@ import { LoginComponent } from './login/login.component';
 const APP_ROUTES: Routes = [
     { path: 'home', component: HomeComponent, canActivate:[AuthGuard]},
     { path: 'login', component: LoginComponent},
+    { path: 'relatorio', component: RelatorioComponent, canActivate:[AuthGuard]},
     { path: 'usr', component: UsrComponent, canActivate:[AuthGuard]},
     { path: 'salas', component: SalasComponent, canActivate:[AuthGuard]},
     { path: 'adm', component: AdmComponent, canActivate:[AuthGuard]},

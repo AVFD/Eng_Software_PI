@@ -86,8 +86,8 @@ export class DbService {
   adicionarSchedule(schedule){
     return this.http.post(this.criarScheduleURL, schedule);
   }
-  getScheduleByDay(dia, sala_id){
-    return this.http.get(this.listarScheduleURL+"?day_of_the_week="+dia+"&laboratory_id="+sala_id);
+  getScheduleByDay(sala_id){
+    return this.http.get(this.listarScheduleURL+"?laboratory_id="+sala_id);
   }
   removerSche(id){
     return this.http.delete(this.deletarScheURL+"/"+id);

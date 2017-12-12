@@ -1,16 +1,16 @@
 <form #f="ngForm" (ngSubmit)="onSubmit(f)" style="margin-top:90px;">
 
-  <h2>Login</h2>
+  <h2>Sistema fechadura</h2>
   <div class="input">
-    <label>Username</label>
+    <label>Nome de usuário</label>
     <input type="text" name="username" class="form-control" #username="ngModel"
-    placeholder="Nome de usuário" ngModel required>
+   ngModel required>
   </div>
   <p class="erroMsg" *ngIf="f.submitted && !username.valid">*O campo username é obrigatório</p>
   <div class="input">
-    <label>Password</label>
+    <label>Senha</label>
     <input #password="ngModel" type="password" name="password" 
-    placeholder="Senha" class="form-control" ngModel required>
+ class="form-control" ngModel required>
   </div>
   <p *ngIf="f.submitted && !password.valid" class="erroMsg">*O campo password é obrigatório</p>
   <div class="input">
