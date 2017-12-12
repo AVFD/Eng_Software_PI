@@ -1,6 +1,6 @@
 # Projeto fechadura eletrônica
 
-# Colocar servidor online Frontend
+### Colocar servidor online Frontend
 Após clonar o projeto, (git clone https://github.com/AVFD/Eng_Software_PI.git), para subir o servidor do front end faça:
 
 * Entre na pasta /frontend
