@@ -33,7 +33,7 @@ Para iniciar um ambiente virtual já criado, digite no terminal:
 
 No ambiente criado, instale as bibliotecas baseada no arquivo "requeriments.txt" que está acompanhado.
 Para isso, digite:
-  # pip install -r requeriments.txt
+ #### pip install -r requeriments.txt
 
 
 Configurando os parâmetros do banco de dados:
@@ -43,4 +43,4 @@ Na pasta "backend" abra o arquivo "config.py". Mude o valor da variável "SQLALC
 Depois, vá até o arquivo "run.py" que encontra-se na mesma pasta. Altere os parâmetros do "app.run" para valores adequados a sua conexão com o banco de dados.
 
 Feito isso, pode-se rodar o server. Para roda-lo, dentro da pasta "back-end", digite:
-  # python3 run.py
+  #### python3 run.py
